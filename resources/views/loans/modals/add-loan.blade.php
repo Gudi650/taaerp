@@ -1,4 +1,4 @@
-<div id="modal-add-loan" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 px-4">
+<div id="modal-add-loan" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-transparent px-4">
     <div class="w-full max-w-2xl rounded-lg bg-white shadow-lg">
         <form action="{{ route('loans.store') }}" method="POST" id="add-loan-form">
             @csrf

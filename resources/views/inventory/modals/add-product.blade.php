@@ -1,4 +1,4 @@
-<div id="modalAddProduct" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40 overflow-y-auto">
+<div id="modalAddProduct" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-transparent overflow-y-auto">
     <div class="bg-white rounded-lg max-w-3xl w-full m-4 my-8">
         <!-- Modal Header -->
         <div

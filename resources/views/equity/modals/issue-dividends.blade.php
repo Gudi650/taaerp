@@ -1,5 +1,5 @@
 <!-- Issue Dividend Modal -->
-<div id="issueDividendModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div id="issueDividendModal" class="fixed inset-0 bg-transparent hidden items-center justify-center z-50">
     <div class="bg-white border rounded-xl shadow-lg w-full max-w-lg p-6">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">

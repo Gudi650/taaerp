@@ -81,7 +81,7 @@
     </main>
 
     {{-- Plain HTML modal (not JS-generated HTML) --}}
-    <div id="addCompanyModalBackdrop" class="hidden fixed inset-0 bg-slate-900 bg-opacity-40 z-50 flex items-start justify-center pt-20 overflow-y-auto">
+    <div id="addCompanyModalBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-20 overflow-y-auto">
         <div class="bg-white rounded-lg shadow-xl border border-slate-200 w-full max-w-lg mx-4 p-6">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold text-slate-800 font-display">Add Company</h2>

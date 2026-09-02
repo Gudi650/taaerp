@@ -37,7 +37,7 @@
     $selected = $variants[$variant] ?? $variants['danger'];
 @endphp
 
-<div id="confirmBackdrop" class="hidden fixed inset-0 bg-slate-900 bg-opacity-40 z-50 flex items-center justify-center">
+<div id="confirmBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-center justify-center">
   <div class="bg-white rounded-lg shadow-xl border border-slate-200 w-full max-w-sm mx-4 p-6">
     <div class="flex justify-center mb-4">
       <div id="confirmIconWrap" class="w-12 h-12 {{ $selected['iconBg'] }} rounded-full flex items-center justify-center">

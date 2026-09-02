@@ -1,4 +1,4 @@
-<div id="modalAddCustomer" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40 overflow-y-auto">
+<div id="modalAddCustomer" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-transparent overflow-y-auto">
     <div class="bg-white rounded-lg max-w-4xl w-full m-4 my-8">
         <div
             class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-lg">

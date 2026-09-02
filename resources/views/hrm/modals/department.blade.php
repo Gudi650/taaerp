@@ -1,4 +1,4 @@
-<div id="addDepartmentModal" class="hidden fixed inset-0 bg-slate-900 bg-opacity-40 z-50 flex items-start justify-center pt-20 overflow-y-auto">
+<div id="addDepartmentModal" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-20 overflow-y-auto">
     <div class="bg-white rounded-lg shadow-xl border border-slate-200 w-full max-w-lg mx-4 p-6">
         <h2 class="text-lg font-semibold font-display mb-4" id="departmentModalTitle">Add Department</h2>
         <form id="departmentForm" method="POST" action="{{ route('departments.store') }}" class="space-y-6" onsubmit="return showDepartmentLoader(event)">

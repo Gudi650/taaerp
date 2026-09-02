@@ -1,5 +1,5 @@
 <!-- Add Company Shares Modal -->
-<div id="addCompanySharesModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+<div id="addCompanySharesModal" class="fixed inset-0 bg-transparent hidden items-center justify-center z-50">
     <!-- Form -->
     <form action="{{ route('shares-definitions.store') }}" method="POST" class="space-y-4" onsubmit="showShareDefintionsCreateLoader()">
         <!-- Company -->

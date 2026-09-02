@@ -1,4 +1,4 @@
-<div id="modalEditOrder" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40 overflow-y-auto">
+<div id="modalEditOrder" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-transparent overflow-y-auto">
     <!-- Hidden container for product options -->
     <div id="productOptionsContainer" class="hidden">
         @isset($products)

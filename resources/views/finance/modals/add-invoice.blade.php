@@ -1,4 +1,4 @@
-<div id="invoiceModalBackdrop" class="hidden fixed inset-0 bg-slate-900 bg-opacity-50 z-50 flex items-start justify-center pt-10 pb-10 px-4 overflow-y-auto" onclick="if(event.target === this) closeInvoiceModal()">
+<div id="invoiceModalBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-10 pb-10 px-4 overflow-y-auto" onclick="if(event.target === this) closeInvoiceModal()">
     <div class="bg-white rounded-xl shadow-2xl border border-slate-200 w-full max-w-3xl">
         <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200">
             <div class="flex items-center gap-3">

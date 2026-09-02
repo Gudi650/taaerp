@@ -1,5 +1,5 @@
 <div id="paymentModalBackdrop"
-    class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-start justify-center pt-6 pb-6 px-4">
+    class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-6 pb-6 px-4">
     <div id="paymentModalCard"
         class="payment-modal-card bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl mx-auto max-h-[92vh] flex flex-col">
         <!-- Sticky Header -->

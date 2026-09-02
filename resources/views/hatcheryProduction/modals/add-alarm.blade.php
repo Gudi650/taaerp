@@ -1,4 +1,4 @@
-<div id="modal-add-alarm" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 px-4">
+<div id="modal-add-alarm" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-transparent px-4">
     <div class="w-full max-w-lg rounded-lg bg-white shadow-lg">
         <form action="{{ route('maintenance.alarms.store') }}" method="POST">
             @csrf

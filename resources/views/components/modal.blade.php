@@ -1,4 +1,4 @@
-<div id="modalBackdrop" class="hidden fixed inset-0 bg-slate-900 bg-opacity-40 z-50 flex items-start justify-center pt-20 overflow-y-auto">
+<div id="modalBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-20 overflow-y-auto">
   <div id="modalCard" class="bg-white rounded-lg shadow-xl border border-slate-200 w-full max-w-lg mx-4 p-6 max-h-[calc(100vh-5rem)] flex flex-col">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
