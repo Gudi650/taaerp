@@ -28,9 +28,9 @@
             </div>
             <div class="relative">
                 <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password"
-                    class="auth-input w-full h-12 px-3.5 pr-16 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('password') input-error border-red-500 bg-red-50 @enderror"
+                    class="auth-input w-full h-12 px-3.5 pr-11 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('password') input-error border-red-500 bg-red-50 @enderror"
                     required />
-                <button id="togglePwd" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 hover:text-brand-600">Show</button>
+                <x-password-toggle for="password" />
             </div>
             @error('password')<p class="text-red-600 text-xs mt-1.5">{{ $message }}</p>@enderror
         </div>
@@ -57,15 +57,6 @@
         if (loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
         setTimeout(() => form.submit(), 75);
         return true;
-    }
-    const toggle = document.getElementById('togglePwd');
-    const pwd = document.getElementById('password');
-    if (toggle && pwd) {
-        toggle.addEventListener('click', () => {
-            const show = pwd.type === 'password';
-            pwd.type = show ? 'text' : 'password';
-            toggle.textContent = show ? 'Hide' : 'Show';
-        });
     }
 </script>
 @endpush

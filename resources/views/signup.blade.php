@@ -38,9 +38,9 @@
             <label for="password" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">Password</label>
             <div class="relative">
                 <input id="password" name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password"
-                    class="auth-input w-full h-12 px-3.5 pr-16 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('password') input-error border-red-500 bg-red-50 @enderror"
+                    class="auth-input w-full h-12 px-3.5 pr-11 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('password') input-error border-red-500 bg-red-50 @enderror"
                     required />
-                <button id="togglePassword" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 hover:text-brand-600">Show</button>
+                <x-password-toggle for="password" />
             </div>
             @error('password')<p class="text-red-600 text-xs mt-1.5">{{ $message }}</p>@enderror
         </div>
@@ -49,9 +49,9 @@
             <label for="password_confirmation" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">Confirm password</label>
             <div class="relative">
                 <input id="passwordConfirm" name="password_confirmation" type="password" placeholder="Re-enter password" autocomplete="new-password"
-                    class="auth-input w-full h-12 px-3.5 pr-16 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600"
+                    class="auth-input w-full h-12 px-3.5 pr-11 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600"
                     required />
-                <button id="togglePasswordConfirm" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 hover:text-brand-600">Show</button>
+                <x-password-toggle for="passwordConfirm" />
             </div>
         </div>
 
@@ -65,20 +65,3 @@
         <a href="{{ url('/login') }}" class="text-sm font-semibold text-brand-600 hover:text-brand-700 underline underline-offset-4 decoration-brand-200 hover:decoration-brand-600">Sign in</a>
     </div>
 @endsection
-
-@push('scripts')
-<script>
-    function bindToggle(btnId, inputId) {
-        const btn = document.getElementById(btnId);
-        const input = document.getElementById(inputId);
-        if (!btn || !input) return;
-        btn.addEventListener('click', () => {
-            const show = input.type === 'password';
-            input.type = show ? 'text' : 'password';
-            btn.textContent = show ? 'Hide' : 'Show';
-        });
-    }
-    bindToggle('togglePassword', 'password');
-    bindToggle('togglePasswordConfirm', 'passwordConfirm');
-</script>
-@endpush

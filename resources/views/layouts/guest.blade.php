@@ -50,5 +50,18 @@
 
     @include('components.alert')
     @stack('scripts')
+    <script>
+        document.querySelectorAll('[data-password-toggle]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById(btn.dataset.passwordToggle);
+                if (!input) return;
+                const show = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                btn.querySelector('.eye-on').classList.toggle('hidden', show);
+                btn.querySelector('.eye-off').classList.toggle('hidden', !show);
+                btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            });
+        });
+    </script>
 </body>
 </html>
