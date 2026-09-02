@@ -36,15 +36,16 @@
 
 <div id="sidebar"
     class="fixed left-0 top-16 lg:top-0 w-64 h-screen bg-brand-600 flex flex-col transition-transform duration-300 z-40 lg:translate-x-0 -translate-x-full overflow-y-auto">
+    
     <!-- Logo Section -->
     <div class="p-4 border-b border-white/10">
         <div class="flex items-center gap-3">
             <div
                 class="w-10 h-10 rounded-md overflow-hidden border border-white/20 bg-white flex items-center justify-center">
-                <img src="{{ asset('favicon.png') }}" alt="Goodness Group logo" class="w-8 h-8 object-contain" />
+                <img src="{{ asset('favicon.png') }}" alt="{{ company_name() }} logo" class="w-8 h-8 object-contain" />
             </div>
             <div>
-                <p class="font-semibold text-white font-display text-sm">Goodness Group</p>
+                <p class="font-semibold text-white font-display text-sm">{{ company_name() }} </p>
                 <p class="text-xs text-white/70">Enterprise</p>
             </div>
         </div>

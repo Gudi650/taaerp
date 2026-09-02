@@ -322,11 +322,11 @@
 
             const resultHtml = `
                 <div class="text-left">
-                    <h3 class="font-semibold text-lg mb-2">${data.success ? ' Import Complete!' : '❌ Import Failed'}</h3>
+                    <h3 class="font-semibold text-lg mb-2">${data.success ? ' Import Complete!' : ' Import Failed'}</h3>
                     <p class="mb-3"><strong>${data.message}</strong></p>
                     <ul class="text-sm space-y-1">
-                        <li>📥 Imported: <strong>${data.imported}</strong></li>
-                        <li>⏭️ Skipped: <strong>${data.skipped}</strong></li>
+                        <li> Imported: <strong>${data.imported}</strong></li>
+                        <li>⏭ Skipped: <strong>${data.skipped}</strong></li>
                         ${data.errors && data.errors.length > 0 ? '<li> Errors: ' + data.errors.join('; ') + '</li>' : ''}
                     </ul>
                 </div>
@@ -364,80 +364,7 @@
         previewedData = null;
     }
 
-    const attendance = [{
-            id: 1,
-            employee: 'Amina Hassan',
-            date: '2026-04-30',
-            checkin: '08:15',
-            checkout: '17:45',
-            hours: '9.5',
-            status: 'Present'
-        },
-        {
-            id: 2,
-            employee: 'Joseph Kimani',
-            date: '2026-04-30',
-            checkin: '08:00',
-            checkout: '17:00',
-            hours: '9',
-            status: 'Present'
-        },
-        {
-            id: 3,
-            employee: 'Lucy Mwangi',
-            date: '2026-04-30',
-            checkin: '',
-            checkout: '',
-            hours: '-',
-            status: 'Absent'
-        },
-    ];
-
-    const leaves = [{
-            id: 1,
-            employee: 'Amina Hassan',
-            type: 'Annual Leave',
-            from: '2026-05-01',
-            to: '2026-05-05',
-            days: 5,
-            status: 'Pending'
-        },
-        {
-            id: 2,
-            employee: 'Joseph Kimani',
-            type: 'Sick Leave',
-            from: '2026-04-28',
-            to: '2026-04-29',
-            days: 2,
-            status: 'Approved'
-        },
-    ];
-
-    const payroll = [{
-            id: 1,
-            employee: 'Amina Hassan',
-            basic: 2500000,
-            deductions: 375000,
-            netPay: 2125000,
-            status: 'Paid'
-        },
-        {
-            id: 2,
-            employee: 'Joseph Kimani',
-            basic: 1800000,
-            deductions: 270000,
-            netPay: 1530000,
-            status: 'Pending'
-        },
-        {
-            id: 3,
-            employee: 'Lucy Mwangi',
-            basic: 2200000,
-            deductions: 330000,
-            netPay: 1870000,
-            status: 'Paid'
-        },
-    ];
+    
 
     function switchTab(tab, btnEl) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));

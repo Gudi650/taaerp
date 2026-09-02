@@ -19,3 +19,4 @@ if (! function_exists('company_tagline')) {
         return (string) config('company.tagline');
     }
 }
+

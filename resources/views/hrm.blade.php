@@ -19,6 +19,7 @@
         @include('hrm.leave')
         @include('hrm.payroll')
         @include('hrm.departments')
+        
     </main>
 
     @include('hrm.modals.salary')
