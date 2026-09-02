@@ -1,126 +1,71 @@
 @extends('layouts.guest')
 
-@section('title', 'Login')
+@section('title', 'Sign in')
 
 @section('content')
-<div class="w-full max-w-md mx-auto p-6">
-        <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-8">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-md overflow-hidden border border-brand-600 bg-white flex items-center justify-center" aria-hidden>
-                    <img src="{{ asset('favicon.png') }}" alt="Goodness Group logo" class="w-8 h-8 object-contain logo-brand" />
-                </div>
-                <div>
-                    <div class="text-sm font-semibold text-slate-800">Goodness Group</div>
-                    <div class="text-xs text-slate-500">Enterprise Management System</div>
-                </div>
-            </div>
+    <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-600 mb-2">Welcome back</p>
+    <h1 class="font-display text-[1.85rem] font-semibold text-brand-700 mb-2">Sign in</h1>
+    <p class="text-sm text-slate-500 leading-relaxed mb-8">Enter your work email and password to open {{ company_name() }}.</p>
 
-            <h2 class="text-2xl font-semibold text-slate-800 mb-4">Sign in to your account</h2>
+    @if ($errors->any())
+        <div class="mb-6 text-sm text-red-800 bg-red-50 border-l-4 border-red-600 px-4 py-3">{{ $errors->first() }}</div>
+    @endif
 
-            @if ($errors->any())
-                <div class="mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-3 py-2">
-                    {{ $errors->first() }}
-                </div>
-            @endif
+    <form method="POST" action="{{ route('login.submit') }}" onsubmit="return showLoader(event, 'loginLoader')" class="space-y-5">
+        @csrf
 
-            <form method="POST" action="{{ route('login.submit') }}" onsubmit="return showLoader(event, 'loginLoader')" class="space-y-4">
-                @csrf
-
-                <div>
-                    <label for="email" class="block text-sm text-slate-500 mb-2">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        placeholder="you@company.tz"
-                        value="{{ old('email') }}"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-md bg-white text-slate-800 outline-none focus:ring-2 focus:ring-brand-600 focus:border-brand-600 @error('email') border-red-500 @enderror"
-                        required
-                    />
-                    @error('email')
-                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm text-slate-500 mb-2">Password</label>
-                    <div class="relative">
-                        <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="••••••••"
-                            class="w-full px-4 py-2 border border-slate-300 rounded-md bg-white text-slate-800 outline-none focus:ring-2 focus:ring-brand-600 focus:border-brand-600 @error('password') border-red-500 @enderror"
-                            required
-                        />
-                        <button
-                            id="togglePwd"
-                            type="button"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-slate-500 hover:text-slate-700 transition"
-                        >
-                            Show
-                        </button>
-                    </div>
-                    @error('password')
-                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="pt-2">
-                    <button
-                        type="submit"
-                        class="w-full px-4 py-2.5 bg-brand-600 text-white rounded-md font-medium hover:bg-brand-700 transition focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2"
-                    >
-                        Sign In
-                    </button>
-                </div>
-            </form>
-
-            <p class="text-sm text-slate-500 mt-6 text-center">
-                Need an account?
-                <a href="/signup" class="text-brand-700 hover:text-brand-600 font-medium">Create one</a>
-            </p>
+        <div>
+            <label for="email" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">Email</label>
+            <input id="email" type="email" name="email" placeholder="you@company.com" value="{{ old('email') }}" autocomplete="email"
+                class="auth-input w-full h-12 px-3.5 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('email') input-error border-red-500 bg-red-50 @enderror"
+                required />
+            @error('email')<p class="text-red-600 text-xs mt-1.5">{{ $message }}</p>@enderror
         </div>
-        <p class="text-center text-sm text-slate-500 mt-4">Goodness Group — Multi-company ERP</p>
+
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <label for="password" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Password</label>
+            </div>
+            <div class="relative">
+                <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password"
+                    class="auth-input w-full h-12 px-3.5 pr-16 border border-slate-300 bg-brand-50 text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:bg-white focus:border-brand-600 @error('password') input-error border-red-500 bg-red-50 @enderror"
+                    required />
+                <button id="togglePwd" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 hover:text-brand-600">Show</button>
+            </div>
+            @error('password')<p class="text-red-600 text-xs mt-1.5">{{ $message }}</p>@enderror
+        </div>
+
+        <button type="submit" class="w-full h-12 bg-brand-600 text-white font-display font-semibold tracking-wide hover:bg-brand-700 transition-colors">
+            Sign in
+        </button>
+    </form>
+
+    <div class="mt-8 pt-6 border-t border-slate-200 flex items-center justify-between gap-4">
+        <p class="text-sm text-slate-500">New here?</p>
+        <a href="{{ url('/signup') }}" class="text-sm font-semibold text-brand-600 hover:text-brand-700 underline underline-offset-4 decoration-brand-200 hover:decoration-brand-600">Create an account</a>
     </div>
 
-    <x-loading id="loginLoader" size="lg" color="amber" full-page="true" message="Signing you in..." :show="false" />
-<script>
-        function showLoader(event, loaderId) {
-            if (event) {
-                event.preventDefault();
-            }
-
-            const loader = document.getElementById(loaderId);
-            const form = event?.currentTarget || event?.target;
-
-            if (loader) {
-                loader.classList.remove('hidden');
-                loader.classList.add('flex');
-            }
-
-            setTimeout(() => {
-                if (form) {
-                    form.submit();
-                }
-            }, 75);
-
-            return true;
-        }
-
-        const toggle = document.getElementById('togglePwd');
-        const pwd = document.getElementById('password');
-
-        if (toggle && pwd) {
-            toggle.addEventListener('click', () => {
-                if (pwd.type === 'password') {
-                    pwd.type = 'text';
-                    toggle.textContent = 'Hide';
-                } else {
-                    pwd.type = 'password';
-                    toggle.textContent = 'Show';
-                }
-            });
-        }
-    </script>
+    <x-loading id="loginLoader" size="lg" color="brand" full-page="true" message="Signing you in..." :show="false" />
 @endsection
+
+@push('scripts')
+<script>
+    function showLoader(event, loaderId) {
+        event.preventDefault();
+        const loader = document.getElementById(loaderId);
+        const form = event.currentTarget;
+        if (loader) { loader.classList.remove('hidden'); loader.classList.add('flex'); }
+        setTimeout(() => form.submit(), 75);
+        return true;
+    }
+    const toggle = document.getElementById('togglePwd');
+    const pwd = document.getElementById('password');
+    if (toggle && pwd) {
+        toggle.addEventListener('click', () => {
+            const show = pwd.type === 'password';
+            pwd.type = show ? 'text' : 'password';
+            toggle.textContent = show ? 'Hide' : 'Show';
+        });
+    }
+</script>
+@endpush
