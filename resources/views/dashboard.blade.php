@@ -1,60 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Dashboard - Goodness Group</title>
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fff8e5',
-                            100: '#fde6a1',
-                            500: '#f0b73a',
-                            600: '#eaa106',
-                            700: '#c88600'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        body {
-            font-family: Inter, sans-serif
-        }
+@section('title', 'Dashboard')
 
-        h1,
-        h2,
-        nav,
-        button {
-            font-family: Outfit, sans-serif
-        }
-
-        .mono {
-            font-family: ui-monospace, monospace
-        }
-    </style>
-</head>
-
-<body class="bg-slate-50 text-slate-800">
-    @include('components.topbar')
-    @include('components.sidebar')
-
-    <main class="ml-0 lg:ml-64 pt-16 lg:pt-20 px-4 lg:p-6 min-h-screen bg-slate-50">
+@section('content')
+<main class="ml-0 lg:ml-64 pt-16 lg:pt-20 px-4 lg:p-6 min-h-screen bg-slate-50">
         <!-- Top KPI Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <!-- Companies -->
@@ -380,10 +329,4 @@
             </aside>
         </div>
     </main>
-
-    @include('components.modal')
-    @include('components.alert')
-    @include('components.confirm')
-</body>
-
-</html>
+@endsection

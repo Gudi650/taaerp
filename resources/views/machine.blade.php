@@ -1,48 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Machine & Maintenance - Goodness Hatchery</title>
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fff8e5',
-                            100: '#fde6a1',
-                            500: '#f0b73a',
-                            600: '#eaa106',
-                            700: '#c88600'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: Inter, sans-serif; }
-        h1, h2, h3, nav, button { font-family: Outfit, sans-serif; }
-        .mono { font-family: ui-monospace, monospace; }
-    </style>
-</head>
+@section('title', 'Machine Monitoring')
 
-<body class="bg-slate-50 text-slate-800">
-    @include('components.topbar')
-    @include('components.sidebar')
-
-    <main class="ml-0 lg:ml-64 pt-20 p-6">
+@section('content')
+<main class="ml-0 lg:ml-64 pt-20 p-6">
 
         <div class="mb-6">
             <h1 class="text-2xl font-semibold">Machine & Maintenance</h1>
@@ -102,12 +63,6 @@
     --}}
 
     <!-- Shared Components -->
-    @include('components.modal')
-    @include('components.alert')
-    @include('components.confirm')
-
-    <!-- Scripts -->
+<!-- Scripts -->
     @include('machineHatchery.scripts')
-</body>
-
-</html>
+@endsection

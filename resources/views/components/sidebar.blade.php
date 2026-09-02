@@ -35,17 +35,17 @@
 </div>
 
 <div id="sidebar"
-    class="fixed left-0 top-16 lg:top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 z-40 lg:translate-x-0 -translate-x-full overflow-y-auto">
+    class="fixed left-0 top-16 lg:top-0 w-64 h-screen bg-brand-600 flex flex-col transition-transform duration-300 z-40 lg:translate-x-0 -translate-x-full overflow-y-auto">
     <!-- Logo Section -->
-    <div class="p-4 border-b border-slate-200">
+    <div class="p-4 border-b border-white/10">
         <div class="flex items-center gap-3">
             <div
-                class="w-10 h-10 rounded-md overflow-hidden border border-brand-100 bg-white flex items-center justify-center">
+                class="w-10 h-10 rounded-md overflow-hidden border border-white/20 bg-white flex items-center justify-center">
                 <img src="{{ asset('favicon.png') }}" alt="Goodness Group logo" class="w-8 h-8 object-contain" />
             </div>
             <div>
-                <p class="font-semibold text-slate-800 font-display text-sm">Goodness Group</p>
-                <p class="text-xs text-slate-500">Enterprise</p>
+                <p class="font-semibold text-white font-display text-sm">Goodness Group</p>
+                <p class="text-xs text-white/70">Enterprise</p>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
 
         <a href="/dashboard"
-            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 mx-2 transition-colors"
+            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
             data-path="/dashboard">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -68,7 +68,7 @@
         @if ($isHR || $isAdmin)
 
             <a href="/users"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/users">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -78,7 +78,7 @@
             </a>
 
             <a href="/companies"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/companies">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -90,7 +90,7 @@
         @endif
 
         <a href="/hrm"
-            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
             data-path="/hrm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -103,7 +103,7 @@
         {{-- 
         @if ($isHatchery || $isAlwaysAuthorized)
             <a href="/production"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/production">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,7 +113,7 @@
             </a>
 
             <a href="/machine"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/machine">
 
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@
         @if ($isAlwaysAuthorized || $accountant || $manager)
 
             <a href="/finance"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/finance">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -147,7 +147,7 @@
             </a>
 
             <a href="/equity"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/equity">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -158,7 +158,7 @@
             </a>
 
             <a href="/sales"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/sales">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -168,7 +168,7 @@
             </a>
 
             <a href="/loans"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/loans">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -178,7 +178,7 @@
             </a>
 
             <a href="/inventory"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/inventory">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -188,7 +188,7 @@
             </a>
 
             <a href="/far"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/far">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -198,7 +198,7 @@
             </a>
 
             <a href="/vataccount"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/vataccount">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -209,7 +209,7 @@
 
 
             <a href="/reports"
-                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+                class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
                 data-path="/reports">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -221,17 +221,17 @@
         @endif
 
         <a href="/communication"
-            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
             data-path="/communication">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.577 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            communication
+            Communication
         </a>
 
         <a href="/settings"
-            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900  mx-2 transition-colors"
+            class="nav-link flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white mx-2 transition-colors"
             data-path="/settings">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -245,7 +245,7 @@
     </nav>
 
     <!-- User Section & Logout (sticky and visible) -->
-    <div class="p-4 border-t border-slate-200 bg-white sticky bottom-0">
+    <div class="p-4 border-t border-white/10 bg-brand-700 sticky bottom-0">
         @php
             // Get the authenticated user's name for display in the sidebar.
 $userName = auth()->user()?->name ?? 'User';
@@ -256,11 +256,11 @@ $userRole = auth()->user()?->role?->name ?? 'N/A';
         @endphp
         <div class="flex items-center gap-3 mb-4">
             <div
-                class="w-8 h-8 bg-brand-600 rounded-full flex items-center justify-center text-white font-bold text-xs font-display">
+                class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-600 font-bold text-xs font-display">
                 {{ $userInitial }}</div>
             <div>
-                <p class="text-sm font-medium text-slate-800">{{ $userName }}</p>
-                <p class="text-xs text-slate-500">{{ $userRole }}</p>
+                <p class="text-sm font-medium text-white">{{ $userName }}</p>
+                <p class="text-xs text-white/70">{{ $userRole }}</p>
             </div>
         </div>
 
@@ -268,7 +268,7 @@ $userRole = auth()->user()?->role?->name ?? 'N/A';
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit"
-                class="w-full text-sm text-red-700 bg-red-50 flex items-center gap-2 px-3 py-2 rounded-md hover:bg-red-100 transition-colors border-t border-slate-100">
+                class="w-full text-sm text-white bg-white/10 flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/20 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -285,11 +285,11 @@ $userRole = auth()->user()?->role?->name ?? 'N/A';
         document.querySelectorAll('.nav-link').forEach(link => {
             const linkPath = link.getAttribute('data-path');
             if (path === linkPath || path.startsWith(linkPath + '/')) {
-                link.classList.remove('text-slate-600', 'hover:text-slate-900');
-                link.classList.add('bg-brand-50', 'text-brand-700', 'border-l-4', 'border-brand-600');
+                link.classList.remove('text-white/80');
+                link.classList.add('bg-white/15', 'text-white', 'border-l-4', 'border-white');
             } else {
-                link.classList.remove('bg-brand-50', 'text-brand-700', 'border-l-4', 'border-brand-600');
-                link.classList.add('text-slate-600');
+                link.classList.remove('bg-white/15', 'text-white', 'border-l-4', 'border-white');
+                link.classList.add('text-white/80');
             }
         });
     }

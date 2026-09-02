@@ -9,7 +9,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
         </button>
-        <h1 id="pageTitle" class="text-sm lg:text-base font-semibold text-slate-800 font-display truncate">Dashboard
+        <h1 id="pageTitle" class="text-sm lg:text-base font-semibold text-slate-800 font-display truncate">
+            {{ $pageTitle ?? 'Dashboard' }}
         </h1>
     </div>
 
@@ -159,28 +160,3 @@
     </div>
 </div>
 
-<script>
-    /**
-     * Update page title based on current URL
-     * This helps users know which page they're viewing
-     */
-    function updatePageTitle() {
-        const titles = {
-            '/dashboard': 'Dashboard',
-            '/companies': 'Companies',
-            '/users': 'Users',
-            '/finance': 'Finance',
-            '/hrm': 'Human Resources',
-            '/sales': 'Sales & CRM',
-            '/inventory': 'Inventory',
-            '/reports': 'Reports & Analytics',
-            '/communication': 'Messages',
-            '/login': 'Login'
-        };
-        const path = window.location.pathname;
-        document.getElementById('pageTitle').textContent = titles[path] || 'Dashboard';
-    }
-
-    // Run when page loads to set the correct title
-    document.addEventListener('DOMContentLoaded', updatePageTitle);
-</script>

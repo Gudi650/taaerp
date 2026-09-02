@@ -103,7 +103,7 @@ img {
 }
 
 .header a {
-    color: #c88600;
+    color: #0e4060;
     font-weight: bold;
     text-decoration: none;
 }
@@ -238,11 +238,11 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #eaa106;
-    border-bottom: 8px solid #eaa106;
-    border-left: 18px solid #eaa106;
-    border-right: 18px solid #eaa106;
-    border-top: 8px solid #eaa106;
+    background-color: #0e4060;
+    border-bottom: 8px solid #0e4060;
+    border-left: 18px solid #0e4060;
+    border-right: 18px solid #0e4060;
+    border-top: 8px solid #0e4060;
 }
 
 .button-green,
@@ -266,7 +266,7 @@ img {
 /* Panels */
 
 .panel {
-    border-left: #eaa106 solid 4px;
+    border-left: #0e4060 solid 4px;
     margin: 21px 0;
 }
 

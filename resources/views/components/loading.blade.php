@@ -19,7 +19,7 @@
     'id' => 'loader',
     'message' => 'Please wait while we process your request...',
     'size' => 'md',
-    'color' => 'amber',
+    'color' => 'brand',
     'fullPage' => false,
     'show' => true
 ])
@@ -34,13 +34,14 @@
     $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];
     
     $colorMap = [
-        'amber' => 'border-t-amber-600',
+        'brand' => 'border-t-brand-600',
+        'amber' => 'border-t-brand-600',
         'blue' => 'border-t-blue-600',
         'slate' => 'border-t-slate-600',
         'green' => 'border-t-green-600',
         'red' => 'border-t-red-600',
     ];
-    $colorClass = $colorMap[$color] ?? $colorMap['amber'];
+    $colorClass = $colorMap[$color] ?? $colorMap['brand'];
 @endphp
 
 <div 
