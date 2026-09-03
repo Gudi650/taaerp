@@ -139,10 +139,12 @@
     };
 
     window.confirmAction = function () {
-      if (confirmCallback) {
-        confirmCallback();
-      }
+      const cb = confirmCallback;
       closeConfirm();
+      if (cb) {
+        if (window.showActionLoader) window.showActionLoader('Please wait...');
+        cb();
+      }
     };
 
     const backdrop = document.getElementById('confirmBackdrop');

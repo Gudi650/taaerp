@@ -49,6 +49,7 @@
     </div>
 
     @include('components.alert')
+    @include('components.action-feedback')
     @stack('scripts')
     <script>
         document.querySelectorAll('[data-password-toggle]').forEach((btn) => {

@@ -31,7 +31,7 @@
 
 @endphp
 
-<div id="sidebarBackdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden" onclick="toggleSidebar()">
+<div id="sidebarBackdrop" class="fixed inset-0 bg-transparent z-30 lg:hidden hidden" onclick="toggleSidebar()">
 </div>
 
 <div id="sidebar"
@@ -133,7 +133,6 @@
 
         @endif
          --}}
-
 
         @if ($isAlwaysAuthorized || $accountant || $manager)
 

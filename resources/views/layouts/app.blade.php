@@ -22,6 +22,7 @@
     @include('components.modal')
     @include('components.alert')
     @include('components.confirm')
+    @include('components.action-feedback')
 
     @yield('content')
 

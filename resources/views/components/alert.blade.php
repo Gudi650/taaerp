@@ -49,12 +49,13 @@
         'bottom-center' => 'bottom-6 left-1/2 -translate-x-1/2',
     ];
 
-    $resolvedType = $type ?: (session('success') ? 'success' : (session('error') ? 'error' : (session('warning') ? 'warning' : 'info')));
+    $hasValidationError = isset($errors) && $errors->any();
+    $resolvedType = $type ?: (session('success') ? 'success' : ((session('error') || $hasValidationError) ? 'error' : (session('warning') ? 'warning' : 'info')));
     $config = $alertTypes[$resolvedType] ?? $alertTypes['info'];
     $containerPosition = $positions[$position] ?? $positions['bottom-right'];
 
     $sessionMessage = session('success') ?? session('error') ?? session('warning') ?? session('info') ?? null;
-    $renderMessage = $message ?? $sessionMessage;
+    $renderMessage = $message ?? $sessionMessage ?? ($hasValidationError ? $errors->first() : null);
     $renderTitle = $title ?? $config['title'];
     $shouldRenderStatic = filled($renderMessage);
 @endphp
