@@ -4,6 +4,15 @@
     const usersPane = document.getElementById('usersPane');
     const rolesPane = document.getElementById('rolesPane');
 
+    function setUsersTab(on, off) {
+        on.classList.add('bg-brand-600', 'text-white');
+        on.classList.remove('text-brand-700');
+        off.classList.remove('bg-brand-600', 'text-white');
+        off.classList.add('text-brand-700');
+        on.querySelector('span')?.classList.replace('bg-brand-50', 'bg-white');
+        off.querySelector('span')?.classList.replace('bg-white', 'bg-brand-50');
+    }
+
     function showUsersPane() {
         if (!usersPane || !rolesPane || !tabUsersBtn || !tabRolesBtn) {
             return;
@@ -11,10 +20,7 @@
 
         usersPane.classList.remove('hidden');
         rolesPane.classList.add('hidden');
-        tabUsersBtn.classList.add('text-slate-900', 'border-b-2', 'border-brand-500');
-        tabUsersBtn.classList.remove('text-slate-600', 'border-transparent');
-        tabRolesBtn.classList.remove('text-slate-900', 'border-b-2', 'border-brand-500');
-        tabRolesBtn.classList.add('text-slate-600', 'border-transparent');
+        setUsersTab(tabUsersBtn, tabRolesBtn);
     }
 
     function showRolesPane() {
@@ -24,10 +30,7 @@
 
         usersPane.classList.add('hidden');
         rolesPane.classList.remove('hidden');
-        tabRolesBtn.classList.add('text-slate-900', 'border-b-2', 'border-brand-500');
-        tabRolesBtn.classList.remove('text-slate-600', 'border-transparent');
-        tabUsersBtn.classList.remove('text-slate-900', 'border-b-2', 'border-brand-500');
-        tabUsersBtn.classList.add('text-slate-600', 'border-transparent');
+        setUsersTab(tabRolesBtn, tabUsersBtn);
     }
 
     if (tabUsersBtn) {

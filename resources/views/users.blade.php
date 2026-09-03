@@ -3,40 +3,25 @@
 @section('title', 'Users')
 
 @section('content')
-<main class="ml-0 lg:ml-64 pt-16 lg:pt-20 px-4 lg:p-6 min-h-screen">
-        
-        <div class="mb-6">
-            <h1 class="text-2xl font-semibold">Users & Roles</h1>
-            <p class="text-sm text-slate-500">Manage user accounts and assign roles/positions</p>
-        </div>
 
-        {{-- Navigation tabs: Users / Roles (styled like the screenshot with underline indicator) --}}
-        <div class="mb-4">
-            <nav class="border-b border-slate-200">
-                <ul class="flex space-x-6 -mb-px">
-                    <li>
-                        <button id="tabUsersBtn" class="pb-3 text-sm font-medium text-slate-900 border-b-2 border-brand-500">Users</button>
-                    </li>
-                    <li>
-                        <button id="tabRolesBtn" class="pb-3 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent">Roles</button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+<main class="ml-0 lg:ml-64 pt-20 px-4 pb-6 lg:px-6 min-h-screen bg-slate-50">
+    <nav class="inline-flex bg-white shadow-sm mb-6">
+        <button type="button" id="tabUsersBtn" class="flex items-center gap-2 h-9 px-3 text-sm font-medium font-display bg-brand-600 text-white">
+            Users <span class="px-1.5 py-0.5 text-[11px] font-semibold bg-white text-brand-700">{{ $users->count() }}</span>
+        </button>
+        <button type="button" id="tabRolesBtn" class="flex items-center gap-2 h-9 px-3 text-sm font-medium font-display text-brand-700">
+            Roles <span class="px-1.5 py-0.5 text-[11px] font-semibold bg-brand-50 text-brand-700">{{ $roles->count() }}</span>
+        </button>
+    </nav>
 
-        {{-- Include the tab contents as partials --}}
-        @include('users.list')
-        @include('users.roles')
+    @include('users.list')
+    @include('users.roles')
+    
+</main>
 
-        {{-- (Users and Roles panes live in the included partials) --}}
-    </main>
-
-    {{-- Modals moved to partials --}}
-    @include('users.modals.assign-role')
-    @include('users.modals.create-role')
-    @include('users.modals.edit-role')
-    @include('users.modals.assign-company')
-
-    {{-- Centralized scripts for users page --}}
-    @include('users-scripts')
+@include('users.modals.assign-role')
+@include('users.modals.create-role')
+@include('users.modals.edit-role')
+@include('users.modals.assign-company')
+@include('users-scripts')
 @endsection
