@@ -18,7 +18,7 @@
 <div id="sidebarBackdrop" class="fixed inset-0 bg-transparent z-30 lg:hidden hidden" onclick="toggleSidebar()"></div>
 
 <div id="sidebar" class="fixed left-0 top-16 lg:top-0 w-64 h-screen bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 z-40 lg:translate-x-0 -translate-x-full overflow-y-auto">
-    <div class="p-4 border-b border-slate-200">
+    <div class="h-16 px-4 border-b border-slate-200 flex items-center shrink-0">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-brand-600 flex items-center justify-center">
                 <img src="{{ asset('favicon.png') }}" alt="{{ company_name() }} logo" class="w-8 h-8 object-contain brightness-0 invert" />
