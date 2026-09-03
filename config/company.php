@@ -14,6 +14,6 @@ return [
 
     'name' => env('COMPANY_NAME', 'Dops Group'),
 
-    'tagline' => env('COMPANY_TAGLINE', 'Enterprise Management System'),
+    'tagline' => env('COMPANY_TAGLINE', 'Enterprise'),
 
 ];
