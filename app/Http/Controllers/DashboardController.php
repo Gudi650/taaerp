@@ -200,7 +200,7 @@ class DashboardController extends Controller
         $recentInvoices = $this->applyCompanyScope(Invoice::query(), $currentUser, $activeCompanyId, $isAlwaysAllowed)
             ->orderByDesc('created_at')
             ->limit(5)
-            ->get(['id', 'invoice_number', 'total_amount', 'status', 'created_at']);
+            ->get(['id', 'invoice_number', 'client_name', 'total_amount', 'status', 'invoice_date', 'due_date', 'created_at']);
 
         $recentPaymentsQuery = Payment::query();
 

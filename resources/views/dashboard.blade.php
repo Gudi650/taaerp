@@ -3,330 +3,202 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<main class="ml-0 lg:ml-64 pt-16 lg:pt-20 px-4 lg:p-6 min-h-screen bg-slate-50">
-        <!-- Top KPI Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <!-- Companies -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-blue-500 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Companies</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalCompanies }}</p>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-blue-100">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-9l9-6 9 6m-1.5 12V7.125M21 3a.75.75 0 00-.75.75v13.5A.75.75 0 0021 17.25m-18 0A.75.75 0 003 17.25V4.875c0-.414.336-.75.75-.75S4.5 4.461 4.5 4.875v12.375A.75.75 0 003 17.25z" />
-                    </svg>
-                </div>
-            </div>
+@php
+    $icon = [
+        'building' => 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6',
+        'people' => 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM4 20a8 8 0 0116 0',
+        'doc' => 'M7 3h7l5 5v13H7V3zM14 3v5h5',
+        'list' => 'M4 6h16M4 10h16M4 14h10M4 18h6',
+        'cal' => 'M8 3v3M16 3v3M4 8h16M5 6h14a1 1 0 011 1v12a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1z',
+        'box' => 'M21 16V8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8',
+        'cart' => 'M4 6h2l2 10h10l2-7H8M8 21a1 1 0 100-2 1 1 0 000 2zM18 21a1 1 0 100-2 1 1 0 000 2z',
+        'sign' => 'M14 3h7v7M21 3l-9 9M10 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-4',
+    ];
+    $activeCompanies = $companies->where('status', 'Active')->count();
+    $maxHeadcount = max(1, (int) $companies->max('users_count'));
+    $kpis = [
+        ['Companies', $totalCompanies, $activeCompanies.' active', $icon['building']],
+        ['Employees', $totalEmployees, 'in '.$totalCompanies.' compan'.((int) $totalCompanies === 1 ? 'y' : 'ies'), $icon['people']],
+        ['Invoices', $totalInvoices, $pendingInvoices.' pending', $icon['doc']],
+        ['Expenses', $totalExpenses, $pendingExpenses.' pending', $icon['list']],
+    ];
+    $attentionItems = array_values(array_filter([
+        ['Invoice approvals', (int) ($pendingInvoices ?? 0), route('invoices.index'), $icon['doc']],
+        ['Expense approvals', (int) ($pendingExpenses ?? 0), route('finance'), $icon['list']],
+        ['Leave requests', (int) ($pendingLeaves ?? 0), route('hrm'), $icon['cal']],
+        ['Low stock items', (int) ($lowStockItems ?? 0), route('inventory'), $icon['box']],
+    ], fn ($i) => $i[1] > 0));
+    usort($attentionItems, fn ($a, $b) => $b[1] <=> $a[1]);
+    $attentionTotal = array_sum(array_column($attentionItems, 1));
+    $actions = [
+        ['invoices.index', 'Create invoice', $icon['doc'], true],
+        ['finance', 'Record expense', $icon['list'], false],
+        ['hrm', 'Review leaves', $icon['cal'], false],
+        ['sales', 'New order', $icon['cart'], false],
+        ['inventory', 'Add product', $icon['box'], false],
+        ['sales', 'New contract', $icon['sign'], false],
+    ];
+@endphp
 
-            <!-- Employees -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-green-500 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Employees</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalEmployees }}</p>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-green-100">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 001.591-.079A8.988 8.988 0 0121 12a8.988 8.988 0 00-5.831-8.312m0 0H15a9.382 9.382 0 00-2.625-.372m0 0a9.337 9.337 0 00-1.591.079A8.988 8.988 0 003 12c0 5.231 4.226 9.5 9.75 9.5.896 0 1.773-.055 2.632-.16m0 0h3.118a9.382 9.382 0 002.625-.372m0 0a9.337 9.337 0 001.591-.079A8.988 8.988 0 0021 12" />
-                    </svg>
-                </div>
+<main class="ml-0 lg:ml-64 pt-20 px-4 pb-6 lg:px-6 min-h-screen bg-slate-50">
+    <section class="bg-brand-600 text-white mb-6">
+        <div class="grid sm:grid-cols-2">
+            <div class="p-6 sm:border-r sm:border-brand-500">
+                <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-100">Invoice value</p>
+                <p class="mt-2 text-2xl lg:text-3xl font-semibold font-display mono">TZS {{ number_format($totalInvoiceAmount ?? 0, 0) }}</p>
+                <p class="mt-1 text-xs text-brand-100">{{ $totalInvoices }} invoice{{ (int) $totalInvoices === 1 ? '' : 's' }}</p>
             </div>
-
-            <!-- Total Invoices -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-amber-500 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Invoices</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalInvoices }}</p>
-                        <p class="text-xs text-amber-600 mt-1">{{ $pendingInvoices }} pending</p>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-amber-100">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.566.034-1.08.16-1.539.342m-5.801 0C2.904 3.693 1.5 5.109 1.5 6.75v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021 18.75V6.75c0-1.641-1.404-3.075-3.227-3.192A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.48.513C3.904 3.693 2.5 5.109 2.5 6.75v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021 18.75V6.75c0-1.641-1.404-3.075-3.227-3.192" />
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Total Expenses -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-red-500 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Expenses</p>
-                        <p class="text-3xl font-bold text-slate-800">{{ $totalExpenses }}</p>
-                        <p class="text-xs text-red-600 mt-1">{{ $pendingExpenses }} pending</p>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-red-100">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 3.071-.879 4.242 0M9.75 11.25a3 3 0 11-6 0 3 3 0 016 0zm7.5-3a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </div>
+            <div class="p-6 border-t border-brand-500 sm:border-t-0">
+                <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-100">Expense value</p>
+                <p class="mt-2 text-2xl lg:text-3xl font-semibold font-display mono">TZS {{ number_format($totalExpenseAmount ?? 0, 0) }}</p>
+                <p class="mt-1 text-xs text-brand-100">{{ $totalExpenses }} expense{{ (int) $totalExpenses === 1 ? '' : 's' }}</p>
             </div>
         </div>
-        
-        @if (!empty($pendingReviewCount ?? 0) && !empty($firstPendingReviewExpenseId))
-            <div class="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 shadow-sm">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div class="flex items-start gap-3">
-                        <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-amber-200 bg-white text-amber-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.06 3.598a9 9 0 1 1 3.88 16.804 9 9 0 0 1-3.88-16.804Z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-sm font-semibold text-amber-900">Review reminder</p>
-                            <p class="mt-1 text-sm leading-6 text-amber-800">
-                                You have {{ $pendingReviewCount }} expense{{ $pendingReviewCount === 1 ? '' : 's' }} waiting for your review.
-                                Please submit the feedback and supporting evidence so the finance team can close the record.
-                            </p>
-                        </div>
-                    </div>
+    </section>
 
-                    <div class="flex items-center gap-3">
-                        <a href="{{ route('expenses.review', ['expense' => $firstPendingReviewExpenseId]) }}"
-                           class="inline-flex items-center justify-center rounded-md bg-amber-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-amber-700">
-                            Review now
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        @foreach ($kpis as [$label, $value, $hint, $d])
+            <div class="bg-white p-5 border-l-4 border-l-brand-600 shadow-sm flex items-start justify-between gap-3">
+                <div>
+                    <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{{ $label }}</p>
+                    <p class="mt-2 text-2xl font-semibold text-brand-700 font-display">{{ $value }}</p>
+                    <p class="mt-1 text-xs {{ str_contains($hint, 'pending') && (int) $hint > 0 ? 'text-red-600' : 'text-slate-500' }}">{{ $hint }}</p>
+                </div>
+                <span class="w-9 h-9 bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $d }}"/></svg>
+                </span>
+            </div>
+        @endforeach
+    </div>
+
+    @if (!empty($pendingReviewCount ?? 0) && !empty($firstPendingReviewExpenseId))
+        <div class="mb-6 bg-white shadow-sm border-l-4 border-l-red-600 px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+                <p class="text-sm font-semibold text-brand-700">Expense review needed</p>
+                <p class="text-sm text-slate-500 mt-0.5">{{ $pendingReviewCount }} expense{{ $pendingReviewCount === 1 ? '' : 's' }} waiting for your feedback.</p>
+            </div>
+            <a href="{{ route('expenses.review', ['expense' => $firstPendingReviewExpenseId]) }}" class="inline-flex items-center justify-center h-9 px-4 bg-brand-600 text-white text-sm font-medium hover:bg-brand-700">Review now</a>
+        </div>
+    @endif
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <section class="lg:col-span-2 bg-white shadow-sm overflow-x-auto">
+            <div class="px-5 py-4">
+                <h2 class="font-display text-lg font-semibold text-brand-700">Companies</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Headcount and status</p>
+            </div>
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 text-slate-600">
+                    <tr>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                        <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Employees</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($companies as $company)
+                        @php
+                            $n = (int) ($company->users_count ?? 0);
+                            $on = ($company->status ?? 'Active') === 'Active';
+                        @endphp
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-5 py-3">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-8 h-8 bg-brand-50 text-brand-700 text-xs font-semibold font-display flex items-center justify-center shrink-0">{{ strtoupper(substr($company->name, 0, 1)) }}</span>
+                                    <span class="font-medium text-slate-800 truncate">{{ $company->name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-5 py-3">
+                                <div class="flex items-center justify-end gap-2">
+                                    <span class="w-16 h-1.5 bg-slate-100">
+                                        <span class="block h-1.5 bg-brand-600" style="width: {{ (int) round($n / $maxHeadcount * 100) }}%"></span>
+                                    </span>
+                                    <span class="tabular-nums w-6 text-right">{{ $n }}</span>
+                                </div>
+                            </td>
+                            <td class="px-5 py-3">
+                                <span class="px-2 py-0.5 text-[11px] font-medium {{ $on ? 'bg-brand-50 text-brand-700' : 'bg-slate-50 text-slate-500' }}">{{ $company->status ?? 'Active' }}</span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="3" class="px-5 py-10 text-center text-slate-500">No companies registered yet.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </section>
+
+        <aside class="space-y-6">
+            <section class="bg-white shadow-sm">
+                <div class="px-5 pt-5 pb-2 flex items-center justify-between gap-3">
+                    <h3 class="font-display text-lg font-semibold text-brand-700">Needs attention</h3>
+                    <span class="px-2 py-0.5 text-[11px] font-semibold {{ $attentionTotal ? 'bg-red-50 text-red-600' : 'bg-slate-50 text-slate-500' }}">{{ $attentionTotal }}</span>
+                </div>
+                <ul>
+                    @forelse ($attentionItems as [$label, $count, $href, $d])
+                        <li class="border-t border-slate-100">
+                            <a href="{{ $href }}" class="flex items-center gap-3 px-5 py-3 hover:bg-slate-50">
+                                <span class="w-8 h-8 shrink-0 bg-brand-50 text-brand-600 flex items-center justify-center">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $d }}"/></svg>
+                                </span>
+                                <span class="flex-1 text-sm font-medium text-slate-800">{{ $label }}</span>
+                                <span class="px-2 py-0.5 text-[11px] font-semibold tabular-nums bg-red-50 text-red-600">{{ $count }}</span>
+                                <svg class="w-4 h-4 shrink-0 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                            </a>
+                        </li>
+                    @empty
+                        <li class="px-5 py-8 text-sm text-slate-500 border-t border-slate-100">All clear</li>
+                    @endforelse
+                </ul>
+            </section>
+
+            <section class="bg-white shadow-sm p-5">
+                <h3 class="font-display text-lg font-semibold text-brand-700 mb-3">Quick actions</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    @foreach ($actions as [$route, $label, $d, $primary])
+                        <a href="{{ route($route) }}" class="flex items-center gap-2 px-3 py-2.5 text-sm font-medium {{ $primary ? 'bg-brand-600 text-white hover:bg-brand-700' : 'bg-brand-50 text-brand-700 hover:bg-brand-100' }}">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="{{ $d }}"/></svg>
+                            {{ $label }}
                         </a>
-                    </div>
-                </div>
-            </div>
-        @endif
-         
-
-        <!-- Secondary Metrics -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <!-- Invoice Amount -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-blue-400 shadow-sm">
-                <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Invoice Value</p>
-                <p class="text-2xl font-bold text-slate-800 mono">TZS {{ number_format($totalInvoiceAmount ?? 0, 2) }}</p>
-            </div>
-
-            <!-- Expense Amount -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-red-400 shadow-sm">
-                <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Expenses Value</p>
-                <p class="text-2xl font-bold text-slate-800 mono">TZS {{ number_format($totalExpenseAmount ?? 0, 2) }}</p>
-            </div>
-
-            <!-- Pending Leaves -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 border-l-purple-500 shadow-sm">
-                <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Pending Leave Requests</p>
-                <p class="text-2xl font-bold text-slate-800">{{ $pendingLeaves }}</p>
-                <p class="text-xs text-slate-600 mt-1">{{ $approvedLeaves }} approved</p>
-            </div>
-
-            <!-- Low Stock Alert -->
-            <div class="bg-white rounded-lg border border-slate-200 p-4 border-l-4 {{ $lowStockItems > 0 ? 'border-l-orange-500' : 'border-l-slate-400' }} shadow-sm">
-                <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Low Stock Items</p>
-                <p class="text-2xl font-bold {{ $lowStockItems > 0 ? 'text-orange-600' : 'text-slate-800' }}">{{ $lowStockItems }}</p>
-                @if($lowStockItems > 0)
-                    <p class="text-xs text-orange-600 mt-1"> Action needed</p>
-                @else
-                    <p class="text-xs text-green-600 mt-1">✓ All good</p>
-                @endif
-            </div>
-        </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Company Performance Table -->
-            <section class="lg:col-span-2 bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
-                <div class="p-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-                    <h2 class="text-lg font-semibold text-slate-900">Company Performance</h2>
-                    <p class="text-sm text-slate-500 mt-1">Overview of revenues and employee count</p>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
-                        <thead class="bg-slate-50">
-                            <tr>
-                                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left font-semibold">Company</th>
-                                {{--<th class="text-xs text-slate-500 uppercase px-4 py-3 text-right font-semibold">Revenue</th> --}}
-                                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right font-semibold">Employees</th>
-                                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left font-semibold">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100">
-                            @forelse ($companies as $company)
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-4 py-3 text-sm font-medium text-slate-900">{{ $company->name }}</td>
-                                    {{-- <tdclass="px-4py-3text-smtext-rightmonotext-slate-700">TZSnumber_format($company->revenue??0,2)</td> --}}
-                                    <td class="px-4 py-3 text-sm text-right font-medium text-slate-700">{{ $company->users_count ?? 0 }}</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <span class="px-3 py-1 inline-flex items-center rounded-full text-xs font-semibold {{ $company->status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-700' }}">
-                                            {{ $company->status ?? 'Active' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="px-4 py-8 text-center text-slate-500">No companies registered yet.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    @endforeach
                 </div>
             </section>
 
-            <!-- Sidebar: Recent Activity & Alerts -->
-            <aside class="space-y-4">
-                <!-- Quick Actions -->
-                <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-sm">
-                    <h3 class="font-semibold text-slate-900 mb-3">Quick Actions</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <a href="{{ route('invoices.index') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25v10.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 18.75V5.25A2.25 2.25 0 016.75 3h6.75L19.5 8.25z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v6.75a.75.75 0 00.75.75H19.5" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">Create Invoice</span>
-                                <span class="block text-xs text-slate-500">Raise a new sales invoice</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('finance') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 3.071-.879 4.242 0" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">Record Expense</span>
-                                <span class="block text-xs text-slate-500">Log a new expense</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('hrm') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">Review Leaves</span>
-                                <span class="block text-xs text-slate-500">Check pending requests</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('sales') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">New Order</span>
-                                <span class="block text-xs text-slate-500">Open a sales order</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('finance') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-3l3 3 3-3m-7.5-6h9" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">New Payment</span>
-                                <span class="block text-xs text-slate-500">Record a payment received</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('inventory') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25l-9-5.25-9 5.25m18 0l-9 5.25m9-5.25v9l-9 5.25m0-14.5L3 8.25m9 5.25v9m0-9l9-5.25" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">Add Product</span>
-                                <span class="block text-xs text-slate-500">Manage inventory items</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('inventory') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h7.125A2.25 2.25 0 0120 8.25v9A2.25 2.25 0 0117.625 19.5H6.375A2.25 2.25 0 014 17.25v-9A2.25 2.25 0 016.375 6H7.5" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6V4.875A1.125 1.125 0 0110.125 3.75h3.75A1.125 1.125 0 0115 4.875V6" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">Add Supplier</span>
-                                <span class="block text-xs text-slate-500">Update supplier records</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('sales') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h10.5M8.25 12h10.5M8.25 17.25h10.5M4.5 6.75h.008v.008H4.5V6.75zm0 5.25h.008v.008H4.5V12zm0 5.25h.008v.008H4.5v-.008z" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">New Contract</span>
-                                <span class="block text-xs text-slate-500">Create a sales contract</span>
-                            </span>
-                        </a>
-                        <a href="{{ route('inventory') }}" class="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md sm:col-span-2">
-                            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-50 text-teal-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75h10.5M9 12h10.5M9 17.25h10.5M4.5 6.75h.008v.008H4.5V6.75zm0 5.25h.008v.008H4.5V12zm0 5.25h.008v.008H4.5v-.008z" />
-                                </svg>
-                            </span>
-                            <span>
-                                <span class="block text-sm font-semibold text-slate-900">New Purchase Order</span>
-                                <span class="block text-xs text-slate-500">Raise a supplier order</span>
-                            </span>
-                        </a>
-                    </div>
+            <section class="bg-white shadow-sm">
+                <div class="px-5 pt-5 pb-2 flex items-center justify-between gap-3">
+                    <h3 class="font-display text-lg font-semibold text-brand-700">Recent invoices</h3>
+                    <a href="{{ route('invoices.index') }}" class="text-xs font-semibold text-brand-600 hover:text-brand-700">View all</a>
                 </div>
-
-                <!-- Pending Approvals -->
-                @if($pendingInvoices > 0 || $pendingExpenses > 0 || $pendingLeaves > 0)
-                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-200 p-4 shadow-sm">
-                        <h3 class="font-semibold text-amber-900 mb-3"> Pending Approvals</h3>
-                        <div class="space-y-2 text-sm">
-                            @if($pendingInvoices > 0)
-                                <div class="flex justify-between">
-                                    <span class="text-amber-800">Invoice approvals</span>
-                                    <span class="font-bold text-amber-900">{{ $pendingInvoices }}</span>
-                                </div>
-                            @endif
-                            @if($pendingExpenses > 0)
-                                <div class="flex justify-between">
-                                    <span class="text-amber-800">Expense approvals</span>
-                                    <span class="font-bold text-amber-900">{{ $pendingExpenses }}</span>
-                                </div>
-                            @endif
-                            @if($pendingLeaves > 0)
-                                <div class="flex justify-between">
-                                    <span class="text-amber-800">Leave requests</span>
-                                    <span class="font-bold text-amber-900">{{ $pendingLeaves }}</span>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-
-                <!-- Low Stock Alert -->
-                @if($lowStockItems > 0)
-                    <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-lg border border-red-200 p-4 shadow-sm">
-                        <h3 class="font-semibold text-red-900 mb-2"> Inventory Alert</h3>
-                        <p class="text-sm text-red-800">{{ $lowStockItems }} item{{ $lowStockItems > 1 ? 's' : '' }} below reorder level.</p>
-                        <a href="#" class="text-xs text-red-700 font-semibold hover:text-red-900 mt-2 inline-block">View inventory →</a>
-                    </div>
-                @endif
-
-                <!-- Recent Activity -->
-                <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-sm">
-                    <h3 class="font-semibold text-slate-900 mb-3">Recent Transactions</h3>
-                    <div class="space-y-3 max-h-64 overflow-y-auto">
-                        @forelse ($recentInvoices as $invoice)
-                            <div class="pb-2 border-b border-slate-100 last:border-0">
-                                <p class="text-xs font-mono text-slate-600">{{ $invoice->invoice_number }}</p>
-                                <p class="text-sm text-slate-700 font-medium">TZS {{ number_format($invoice->total_amount ?? 0, 2) }}</p>
-                                <span class="text-xs px-2 py-0.5 rounded-full {{ $invoice->status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-600' }}">
-                                    {{ ucfirst($invoice->status ?? 'pending') }}
-                                </span>
+                <div class="max-h-64 overflow-y-auto">
+                    @forelse ($recentInvoices as $invoice)
+                        @php
+                            $status = strtolower($invoice->status ?? 'pending');
+                            $isPaid = $status === 'paid';
+                            $due = $invoice->due_date ? \Illuminate\Support\Carbon::parse($invoice->due_date) : null;
+                            $isOverdue = $status === 'overdue' || (! $isPaid && $due && $due->isPast());
+                            $stripe = $isPaid ? 'border-l-brand-600' : ($isOverdue ? 'border-l-red-600' : 'border-l-slate-300');
+                            $pill = $isPaid
+                                ? 'bg-brand-50 text-brand-700'
+                                : ($isOverdue ? 'bg-red-50 text-red-600' : 'bg-slate-50 text-slate-600');
+                            $label = $isOverdue && $status !== 'overdue' ? 'Overdue' : ucfirst($status);
+                            $shownDate = $invoice->invoice_date ?? $invoice->created_at;
+                        @endphp
+                        <div class="flex items-center gap-3 px-5 py-3 border-l-4 {{ $stripe }}">
+                            <div class="min-w-0 flex-1">
+                                <p class="text-xs mono text-slate-500 truncate">{{ $invoice->invoice_number }}</p>
+                                @if ($invoice->client_name)
+                                    <p class="text-xs text-slate-400 truncate">{{ $invoice->client_name }}</p>
+                                @endif
                             </div>
-                        @empty
-                            <p class="text-sm text-slate-500 text-center py-4">No recent invoices</p>
-                        @endforelse
-                    </div>
+                            <p class="text-sm font-medium text-slate-800 mono shrink-0">TZS {{ number_format($invoice->total_amount ?? 0, 0) }}</p>
+                            <span class="shrink-0 px-2 py-0.5 text-[11px] font-medium {{ $pill }}">{{ $label }}</span>
+                            <p class="hidden sm:block w-16 text-right text-[11px] text-slate-400 shrink-0">{{ $shownDate ? \Illuminate\Support\Carbon::parse($shownDate)->format('d M') : '—' }}</p>
+                        </div>
+                    @empty
+                        <p class="px-5 py-8 text-sm text-slate-500">No recent invoices</p>
+                    @endforelse
                 </div>
-            </aside>
-        </div>
-    </main>
+            </section>
+        </aside>
+    </div>
+</main>
 @endsection
