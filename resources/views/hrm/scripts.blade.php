@@ -13,12 +13,12 @@
         if (!status) return;
 
         const styles = {
-            info: 'border-blue-200 bg-blue-50 text-blue-700',
-            success: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+            info: 'border-brand-200 bg-brand-50 text-brand-700',
+            success: 'border-brand-200 bg-brand-50 text-brand-700',
             error: 'border-red-200 bg-red-50 text-red-700',
         };
 
-        status.className = `rounded-md border px-3 py-2 text-sm ${styles[type] || styles.info}`;
+        status.className = `border px-3 py-2 text-sm ${styles[type] || styles.info}`;
         status.textContent = message;
         status.classList.remove('hidden');
     }
@@ -369,15 +369,17 @@
     function switchTab(tab, btnEl) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
         document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('border-brand-600', 'text-slate-700', 'border-b-2');
-            b.classList.add('text-slate-500');
+            b.classList.remove('bg-brand-600', 'text-white');
+            b.classList.add('text-brand-700');
+            b.querySelector('span')?.classList.replace('bg-white', 'bg-brand-50');
         });
         const content = document.getElementById('tab-' + tab);
         if (content) content.classList.remove('hidden');
         if (!btnEl) btnEl = document.querySelector('.tab-btn');
         if (btnEl) {
-            btnEl.classList.add('border-b-2', 'border-brand-600', 'text-slate-700');
-            btnEl.classList.remove('text-slate-500');
+            btnEl.classList.add('bg-brand-600', 'text-white');
+            btnEl.classList.remove('text-brand-700');
+            btnEl.querySelector('span')?.classList.replace('bg-brand-50', 'bg-white');
         }
     }
 

@@ -1,101 +1,62 @@
 <div id="tab-leave" class="tab-content hidden">
-    <div class="flex flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="text-lg font-semibold font-display">Leave Requests</h2>
-        <button onclick="openAddLeaveModal()"
-            class="w-full sm:w-auto flex-shrink-0 whitespace-nowrap px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium transition-colors">Request
-            Leave</button>
+    <div class="flex justify-end mb-4">
+        <button type="button" onclick="openAddLeaveModal()" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Request leave</button>
     </div>
-    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">
-                            Employee</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Type
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">From
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">To
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Days
-                        </th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">
-                            Status</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">
-                            Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="leaveTable" class="divide-y divide-slate-100">
-                    @forelse($leaves ?? [] as $leave)
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-4 py-3 text-sm">{{ $leave->user?->name ?? 'Employee' }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $leave->leave_type }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $leave->from_date?->format('Y-m-d') ?? '-' }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $leave->to_date?->format('Y-m-d') ?? '-' }}</td>
-                            <td class="px-4 py-3 text-sm">{{ $leave->days }}</td>
-                            <td class="px-4 py-3 text-sm">
-                                @if ($leave->status === 'Approved')
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded bg-brand-50 text-brand-700 text-xs font-medium">Approved</span>
-                                @elseif($leave->status === 'Rejected')
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 text-xs font-medium">Rejected</span>
-                                @else
-                                    <span
-                                        class="inline-block px-2 py-0.5 rounded bg-amber-50 text-amber-700 text-xs font-medium">Pending</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-3 text-sm space-x-2">
-                                @if ($leave->status === 'Pending')
-                                    <form method="POST" action="{{ route('leaves.update', $leave->id) }}"
-                                        class="inline">
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
+                <tr>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Employee</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Type</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">From</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">To</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Days</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="leaveTable">
+                @forelse($leaves ?? [] as $leave)
+                    @php
+                        $st = $leave->status ?? 'Pending';
+                        $pill = $st === 'Rejected' ? 'bg-red-50 text-red-600' : 'bg-brand-50 text-brand-700';
+                    @endphp
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-5 py-3 font-medium text-slate-800">{{ $leave->user?->name ?? 'Employee' }}</td>
+                        <td class="px-5 py-3 text-slate-600">{{ $leave->leave_type }}</td>
+                        <td class="px-5 py-3 text-slate-600">{{ $leave->from_date?->format('Y-m-d') ?? '—' }}</td>
+                        <td class="px-5 py-3 text-slate-600">{{ $leave->to_date?->format('Y-m-d') ?? '—' }}</td>
+                        <td class="px-5 py-3 text-slate-600">{{ $leave->days }}</td>
+                        <td class="px-5 py-3"><span class="px-2 py-0.5 text-[11px] font-medium {{ $pill }}">{{ $st }}</span></td>
+                        <td class="px-5 py-3">
+                            @if ($st === 'Pending')
+                                <div class="inline-flex gap-2">
+                                    <form method="POST" action="{{ route('leaves.update', $leave->id) }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="status" value="Approved">
-                                        <div class="flex items-center gap-1">
-                                            <button type="submit"
-                                                class="px-2 py-1 bg-brand-50 text-green-700 text-xs rounded hover:bg-green-100">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
-                                                    class="w-4 h-4">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-
-                                            </button>
+                                        <button type="submit" class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100" title="Approve">
+                                            <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                        </button>
                                     </form>
-
-                                    <form method="POST" action="{{ route('leaves.update', $leave->id) }}"
-                                        class="inline">
+                                    <form method="POST" action="{{ route('leaves.update', $leave->id) }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="status" value="Rejected">
-                                        <button type="submit"
-                                            class="px-2 py-1 bg-red-50 text-red-700 text-xs rounded hover:bg-red-100">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-
+                                        <button type="submit" class="w-8 h-8 bg-red-50 text-red-600 hover:bg-red-100" title="Reject">
+                                            <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                                         </button>
                                     </form>
-                                @else
-                                    <span class="text-slate-400 text-xs">-</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-4 py-3 text-center text-slate-500 text-sm">No leave requests
-                                yet.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                                </div>
+                            @else
+                                <span class="text-xs text-slate-400">—</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="7" class="px-5 py-10 text-center text-slate-500">No leave requests yet.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>

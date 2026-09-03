@@ -1,48 +1,45 @@
 <div id="tab-attendance" class="tab-content hidden">
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-semibold font-display">Attendance Records</h2>
-        <input type="date" id="attendanceFilter" class="border border-slate-300 rounded-md px-3 py-2 text-sm" />
+    <div class="flex justify-end mb-4">
+        <input type="date" id="attendanceFilter" class="h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
     </div>
-    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Employee</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Date</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Check-in</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Check-out</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Hours</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="attendanceTable" class="divide-y divide-slate-100">
-                    <tr class="hover:bg-slate-50">
-                        <td class="px-4 py-3 text-sm">Amina Hassan</td>
-                        <td class="px-4 py-3 text-sm">2026-04-30</td>
-                        <td class="px-4 py-3 text-sm">08:15</td>
-                        <td class="px-4 py-3 text-sm">17:45</td>
-                        <td class="px-4 py-3 text-sm">9.5</td>
-                        <td class="px-4 py-3 text-sm"><span class="inline-block px-2 py-0.5 rounded bg-brand-50 text-brand-700 text-xs font-medium">Present</span></td>
-                    </tr>
-                    <tr class="hover:bg-slate-50">
-                        <td class="px-4 py-3 text-sm">Joseph Kimani</td>
-                        <td class="px-4 py-3 text-sm">2026-04-30</td>
-                        <td class="px-4 py-3 text-sm">08:00</td>
-                        <td class="px-4 py-3 text-sm">17:00</td>
-                        <td class="px-4 py-3 text-sm">9</td>
-                        <td class="px-4 py-3 text-sm"><span class="inline-block px-2 py-0.5 rounded bg-brand-50 text-brand-700 text-xs font-medium">Present</span></td>
-                    </tr>
-                    <tr class="hover:bg-slate-50">
-                        <td class="px-4 py-3 text-sm">Lucy Mwangi</td>
-                        <td class="px-4 py-3 text-sm">2026-04-30</td>
-                        <td class="px-4 py-3 text-sm">-</td>
-                        <td class="px-4 py-3 text-sm">-</td>
-                        <td class="px-4 py-3 text-sm">-</td>
-                        <td class="px-4 py-3 text-sm"><span class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 text-xs font-medium">Absent</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
+                <tr>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Employee</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Date</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Check-in</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Check-out</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Hours</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceTable">
+                <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-3 font-medium text-slate-800">Amina Hassan</td>
+                    <td class="px-5 py-3 text-slate-600">2026-04-30</td>
+                    <td class="px-5 py-3 text-slate-600">08:15</td>
+                    <td class="px-5 py-3 text-slate-600">17:45</td>
+                    <td class="px-5 py-3 text-slate-600">9.5</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 text-[11px] font-medium bg-brand-50 text-brand-700">Present</span></td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-3 font-medium text-slate-800">Joseph Kimani</td>
+                    <td class="px-5 py-3 text-slate-600">2026-04-30</td>
+                    <td class="px-5 py-3 text-slate-600">08:00</td>
+                    <td class="px-5 py-3 text-slate-600">17:00</td>
+                    <td class="px-5 py-3 text-slate-600">9</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 text-[11px] font-medium bg-brand-50 text-brand-700">Present</span></td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="px-5 py-3 font-medium text-slate-800">Lucy Mwangi</td>
+                    <td class="px-5 py-3 text-slate-600">2026-04-30</td>
+                    <td class="px-5 py-3 text-slate-600">—</td>
+                    <td class="px-5 py-3 text-slate-600">—</td>
+                    <td class="px-5 py-3 text-slate-600">—</td>
+                    <td class="px-5 py-3"><span class="px-2 py-0.5 text-[11px] font-medium bg-red-50 text-red-600">Absent</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
