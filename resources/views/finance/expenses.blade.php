@@ -1,44 +1,19 @@
 <div id="expensesPane" class="hidden">
-    <div class="flex flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="text-lg font-semibold font-display">Expenses</h2>
-    </div>
 
     @if (!empty($pendingReviewCount ?? 0) && !empty($firstPendingReviewExpenseId))
-        <div class="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-4 shadow-sm">
-            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                <div class="flex items-start gap-3">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white text-amber-700 border border-amber-200 flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.06 3.598a9 9 0 1 1 3.88 16.804 9 9 0 0 1-3.88-16.804Z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-amber-900">Review reminder</p>
-                        <p class="mt-1 text-sm text-amber-800 leading-6">
-                            You have {{ $pendingReviewCount }} expense{{ $pendingReviewCount === 1 ? '' : 's' }} waiting
-                            for your review.
-                            Please submit the feedback and supporting evidence so the finance team can close the record.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('expenses.review', ['expense' => $firstPendingReviewExpenseId]) }}"
-                        class="inline-flex items-center justify-center rounded-md bg-amber-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-amber-700">
-                        Review now
-                    </a>
-                </div>
+        <div class="mb-6 bg-white shadow-sm border-l-4 border-l-red-600 px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+                <p class="text-sm font-semibold text-brand-700">Expense review needed</p>
+                <p class="text-sm text-slate-500 mt-0.5">{{ $pendingReviewCount }} expense{{ $pendingReviewCount === 1 ? '' : 's' }} waiting for your feedback.</p>
             </div>
+            <a href="{{ route('expenses.review', ['expense' => $firstPendingReviewExpenseId]) }}" class="inline-flex items-center justify-center h-9 px-4 bg-brand-600 text-white text-sm font-medium hover:bg-brand-700">Review now</a>
         </div>
     @endif
 
     {{-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-6"> --}}
     <div class="grid gap-4 mb-6 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-blue-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Expenses</p>
@@ -53,7 +28,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-green-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Amount</p>
@@ -70,7 +45,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-amber-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Pending Approvals</p>
@@ -85,7 +60,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-slate-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Drafted</p>
@@ -99,7 +74,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-indigo-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Issued</p>
@@ -113,7 +88,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-emerald-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-slate-500 uppercase tracking-wide mb-1">Approved</p>
@@ -131,7 +106,7 @@
 
     <!-- ================= FILTER TOOLBAR ================= -->
 
-    <div class="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <div class="mb-6 bg-white shadow-sm p-4">
 
         <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
 
@@ -150,7 +125,7 @@
                 id="expenseSearch"
                 placeholder="Search expenses..."
                 autocomplete="off"
-                class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-brand-500 focus:ring-brand-500">
+                class="w-full h-9 border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm outline-none focus:border-brand-600">
 
             </div>
 
@@ -180,9 +155,9 @@
 
     <!-- ================= TABLE ================= -->
 
-    <div class="overflow-x-auto">
+    <div class="bg-white shadow-sm overflow-x-auto">
         <table class="min-w-full">
-            <thead class="bg-slate-50">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
                     <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">ID</th>
                     <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Date</th>
@@ -206,7 +181,7 @@
                         <td class="px-4 py-3 text-sm text-right mono">TZS {{ number_format($expense['amount']) }}</td>
                         <td class="px-4 py-3 text-sm">
                             <span
-                                class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium {{ $expense['status'] === 'draft' ? 'bg-slate-100 text-slate-700' : 'bg-emerald-50 text-emerald-700' }}">
+                                class="px-2 py-0.5 text-[11px] font-medium {{ $expense['status'] === 'draft' ? 'bg-slate-50 text-slate-600' : 'bg-brand-50 text-brand-700' }}">
                                 {{ ucfirst($expense['status']) }}
                             </span>
                         </td>

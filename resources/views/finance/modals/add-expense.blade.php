@@ -10,18 +10,18 @@
             $canChooseCompany = in_array($currentUser?->role?->name, ['Admin', 'CEO', 'Accountant']);
         @endphp
 
-        <section class="rounded-lg border border-slate-100 bg-white p-4 shadow-sm">
+        <section class="border border-slate-200 p-4">
             <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Expense Details</h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Expense Number</label>
                     <input type="text" id="expenseId" name="expense_number" readonly placeholder="EXP-0001"
-                        class="w-full cursor-not-allowed rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none cursor-not-allowed">
                 </div>
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Expense Date</label>
                     <input type="date" id="expenseDate" name="expense_date" required
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Company</label>
@@ -29,7 +29,7 @@
                     @if ($canChooseCompany)
 
                         <select id="expenseCompany" name="company_id" required
-                            class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">Select company...</option>
                             @if (isset($companies))
                                 @foreach ($companies as $id => $name)
@@ -41,7 +41,7 @@
                     @else
                         <input type="hidden" name="company_id" value="{{ $currentCompanyId }}">
                         <input type="text" value="{{ $currentCompanyName }}" readonly
-                            class="w-full cursor-not-allowed rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-600">
+                            class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none cursor-not-allowed">
                     @endif
 
                 </div>
@@ -51,7 +51,7 @@
                     <div>
                         <label class="mb-1 block text-sm font-medium text-slate-700">Bank </label>
                         <select id="expenseBank" name="bank_id" required
-                            class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">Select bank...</option>
 
                             @foreach ($virtualAccounts as $account)
@@ -68,7 +68,7 @@
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Department</label>
                     <select id="expenseDepartment" name="department_id" required
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select department...</option>
 
                         @if (isset($departments))
@@ -87,7 +87,7 @@
                 <div class="md:col-span-2 hidden">
                     <label class="mb-1 block text-sm font-medium text-slate-700">Recorded By</label>
                     <select id="expenseRecordedBy"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="{{ auth()->user()?->id ?? '' }}">{{ auth()->user()?->name ?? 'Current user' }}
                         </option>
                     </select>
@@ -95,14 +95,14 @@
             </div>
         </section>
 
-        <section class="rounded-lg border border-slate-100 bg-white p-4 shadow-sm">
+        <section class="border border-slate-200 p-4">
             <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Expense Classification</h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Category</label>
 
                     <select id="expenseCategory" name="category" required
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
 
                         <option value="">Select category...</option>
 
@@ -118,7 +118,7 @@
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Sub-category</label>
                     <select id="expenseSubCategory" name="sub_category_id" required
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select sub-category...</option>
                     </select>
                 </div>
@@ -127,7 +127,7 @@
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Payment Method</label>
                     <select id="expensePaymentMethod" name="payment_method" required
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select payment method...</option>
                         <!--<option value="Cash">Cash</option> -->
                         <option value="Bank Transfer">Bank Transfer</option>
@@ -140,7 +140,7 @@
                     <label class="mb-1 block text-sm font-medium text-slate-700">Reference Number</label>
                     <input type="text" id="expenseReference" name="reference_number"
                         placeholder="Receipt / Cheque / M-Pesa Txn ID"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
 
                 --}}
@@ -150,7 +150,7 @@
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Classification</label>
                     <select id="expenseTerm" name="term" value="Current"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select Liability Type...</option>
                         <option value="current_liabilities">Current Liabilities</option>
                         <option value="non_current_liabilities">Non Current Liabilities</option>
@@ -168,21 +168,21 @@
                     <label class="mb-1 block text-sm font-medium text-slate-700">Expense Description</label>
                     <input name="description" type="text" id="expenseDescription"
                         placeholder="Brief description of the expense"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
             </div>
         </section>
 
-        <section class="rounded-lg border border-slate-100 bg-white p-4 shadow-sm">
+        <section class="border border-slate-200 p-4">
             <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Amount</h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Amount (TZS)</label>
                     <input type="number" id="expenseAmount" name="amount" min="0" step="0.01" required
                         placeholder="0.00"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
-                <div class="flex items-center justify-between rounded-md border border-slate-100 bg-slate-50 px-3 py-2">
+                <div class="flex items-center justify-between border border-slate-200 bg-brand-50 px-3 py-2">
                     <span class="text-sm font-medium text-slate-700">VAT Included</span>
                     <label class="inline-flex cursor-pointer items-center">
                         <input type="hidden" name="vat_included" value="0">
@@ -199,28 +199,28 @@
                     <label class="mb-1 block text-sm font-medium text-slate-700">VAT Rate %</label>
                     <input type="number" id="expenseVatRate" name="vat_rate" min="0" step="0.01"
                         value="18"
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
                 <div id="expenseVatAmountWrap" class="hidden">
                     <label class="mb-1 block text-sm font-medium text-slate-700">Computed VAT Amount</label>
                     <input type="text" id="expenseVatAmount" name="vat_amount" readonly value="0.00"
-                        class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-700">
+                        class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none"
                 </div>
                 <div class="md:col-span-2">
                     <label class="mb-1 block text-sm font-medium text-slate-700">Net Amount</label>
                     <input type="text" id="expenseNetAmount" name="net_amount" readonly value="0.00"
-                        class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 font-semibold text-slate-700">
+                        class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm font-medium outline-none"
                 </div>
             </div>
         </section>
 
-        <section class="rounded-lg border border-slate-100 bg-white p-4 shadow-sm">
+        <section class="border border-slate-200 p-4">
             <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-700">Attachment & Notes</h3>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label class="mb-1 block text-sm font-medium text-slate-700">Receipt / Document</label>
                     <input type="file" id="expenseAttachment" name="attachment" accept=".jpg,.jpeg,.png,.pdf"
-                        class="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-brand-700 hover:file:bg-brand-100">
+                        class="w-full h-9 px-3 border border-slate-200 bg-white text-sm file:mr-3 file:border-0 file:bg-brand-50 file:px-3 file:h-7 file:text-brand-700 hover:file:bg-brand-100">
                 </div>
                 {{-- 
                 <div>
@@ -232,16 +232,16 @@
                 <div class="md:col-span-2">
                     <label class="mb-1 block text-sm font-medium text-slate-700">Notes / Description</label>
                     <textarea id="expenseDesc" name="notes" rows="3" placeholder="Explain what this expense was for..."
-                        class="w-full rounded-md border border-slate-200 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-brand-500"></textarea>
+                        class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
                 </div>
             </div>
         </section>
 
         <div class="flex flex-col gap-2 border-t border-slate-100 pt-2 sm:flex-row sm:justify-end">
             <button type="button" onclick="window.closeModal && window.closeModal()"
-                class="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50">Cancel</button>
+                class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
             <button type="submit" name="submit_mode" value="draft"
-                class="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50">Send for approval</button>
+                class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Send for approval</button>
             <!-- <button type="submit" name="submit_mode" value="submit" class="rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-700">Submit Expense</button> -->
         </div>
     </form>

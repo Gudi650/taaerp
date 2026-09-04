@@ -8,7 +8,7 @@
     <div class="grid gap-4 mb-6 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
 
         <!-- Total Invoices -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-blue-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs uppercase tracking-wide text-slate-500 mb-1">
@@ -30,7 +30,7 @@
         </div>
 
         <!-- Total Amount -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-green-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
 
                 <div>
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Paid -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-emerald-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
 
                 <div>
@@ -77,7 +77,7 @@
         </div>
 
         <!-- Pending -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-amber-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
 
                 <div>
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Overdue -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-red-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-red-600 p-5">
             <div class="flex items-center justify-between">
 
                 <div>
@@ -123,7 +123,7 @@
         </div>
 
         <!-- Draft -->
-        <div class="bg-white rounded-lg border border-slate-200 border-l-4 border-l-slate-500 p-4">
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-5">
             <div class="flex items-center justify-between">
 
                 <div>
@@ -148,7 +148,7 @@
     </div>
 
     <!-- Invoice Filters -->
-    <div class="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <div class="mb-6 bg-white shadow-sm p-4">
 
         <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
 
@@ -167,13 +167,13 @@
                     id="invoiceSearch"
                     placeholder="Search invoice number, customer, email..."
                     autocomplete="off"
-                    class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-brand-500 focus:ring-brand-500">
+                    class="w-full h-9 border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm outline-none focus:border-brand-600">
 
             </div>
 
             <div class="flex flex-wrap gap-3">
 
-                <select class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm">
+                <select class="h-9 border border-slate-200 bg-white px-3 text-sm outline-none focus:border-brand-600">
                     <option>All Periods</option>
                     <option>Today</option>
                     <option>This Week</option>
@@ -184,7 +184,7 @@
                 </select>
 
                 <button
-                    class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
+                    class="h-9 border border-slate-200 bg-white px-4 text-sm text-slate-600 hover:bg-slate-50">
                     Reset
                 </button>
 
@@ -194,7 +194,7 @@
 
         <div class="mt-4 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4">
 
-            <select class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+            <select class="h-9 border border-slate-200 bg-white px-3 text-sm outline-none focus:border-brand-600">
                 <option>All Status</option>
                 <option>Draft</option>
                 <option>Pending</option>
@@ -202,13 +202,13 @@
                 <option>Overdue</option>
             </select>
 
-            <select class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+            <select class="h-9 border border-slate-200 bg-white px-3 text-sm outline-none focus:border-brand-600">
                 <option>All Invoice Types</option>
                 <option>Product</option>
                 <option>Service</option>
             </select>
 
-            <select class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+            <select class="h-9 border border-slate-200 bg-white px-3 text-sm outline-none focus:border-brand-600">
                 <option>All Payment Methods</option>
                 <option>Cash</option>
                 <option>Bank</option>
@@ -225,9 +225,9 @@
     </div>
 
 
-    <div class="overflow-x-auto">
+    <div class="bg-white shadow-sm overflow-x-auto">
         <table class="min-w-full">
-            <thead class="bg-slate-50">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
                     <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Invoice</th>
                     <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
@@ -247,13 +247,13 @@
                         </td>
                         <td class="px-4 py-3 text-sm text-center">
                             <span
-                                class="inline-block px-2 py-1 {{ $invoice['status'] === 'paid' ? 'bg-brand-50 text-brand-700' : 'bg-slate-50 text-slate-700' }} rounded-md text-xs font-medium">{{ ucfirst($invoice['status']) }}</span>
+                                class="px-2 py-0.5 text-[11px] font-medium {{ $invoice['status'] === 'paid' ? 'bg-brand-50 text-brand-700' : 'bg-slate-50 text-slate-600' }}">{{ ucfirst($invoice['status']) }}</span>
                         </td>
                         <td class="px-4 py-3 text-sm text-center">
                             <div class="flex items-center justify-center gap-6">
 
                                 <a href="{{ route('invoices.download', $invoice['id']) }}"
-                                    class="text-emerald-600 hover:text-emerald-800 transition-colors"
+                                    class="text-brand-600 hover:text-brand-700"
                                     title="Download invoice PDF" aria-label="Download invoice PDF">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
@@ -355,7 +355,7 @@
                                     <p class="text-xs uppercase tracking-wide text-slate-500 mb-2">Items</p>
                                     <div class="overflow-x-auto border border-slate-200 rounded-lg">
                                         <table class="min-w-full text-sm">
-                                            <thead class="bg-slate-50">
+                                            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                                                 <tr>
                                                     <th class="px-3 py-2 text-left font-medium text-slate-600">#</th>
                                                     <th class="px-3 py-2 text-left font-medium text-slate-600">

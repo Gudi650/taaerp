@@ -1,14 +1,9 @@
-<div id="invoiceModalBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-10 pb-10 px-4 overflow-y-auto" onclick="if(event.target === this) closeInvoiceModal()">
-    <div class="bg-white rounded-xl shadow-2xl border border-slate-200 w-full max-w-3xl">
-        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200">
-            <div class="flex items-center gap-3">
-                <div class="w-3 h-3 bg-brand-600 rounded-sm"></div>
-                <h2 class="text-xl font-semibold text-slate-800" style="font-family: Outfit, sans-serif;">New Invoice</h2>
-            </div>
-            <button type="button" onclick="closeInvoiceModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
+<div id="invoiceModalBackdrop" class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-20 pb-10 px-4 overflow-y-auto" onclick="if(event.target === this) closeInvoiceModal()">
+    <div class="bg-white shadow-sm border-l-4 border-l-brand-600 w-full max-w-3xl mx-4">
+        <div class="flex items-center justify-between px-6 py-4">
+            <h2 class="text-lg font-semibold text-brand-700 font-display">New Invoice</h2>
+            <button type="button" onclick="closeInvoiceModal()" class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100" aria-label="Close">
+                <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
 
@@ -18,19 +13,19 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Invoice Number</label>
-                    <input id="invoiceNumber" name="invoice_number" type="text" readonly class="w-full bg-slate-50 text-slate-400 px-3 py-2 rounded-md border border-slate-300 cursor-not-allowed" />
+                    <input id="invoiceNumber" name="invoice_number" type="text" readonly class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none cursor-not-allowed" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Invoice Date</label>
-                    <input id="invoiceDate" name="invoice_date" type="date" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                    <input id="invoiceDate" name="invoice_date" type="date" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Due Date</label>
-                    <input id="invoiceDueDate" name="due_date" type="date" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                    <input id="invoiceDueDate" name="due_date" type="date" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Status</label>
-                    <select id="invoiceStatus" name="status" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <select id="invoiceStatus" name="status" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="paid">Draft</option>
                         <option value="paid">Pending</option>
                         <option value="paid">Paid</option>
@@ -39,7 +34,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Company</label>
-                    <select id="invoiceCompany" name="company_id" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <select id="invoiceCompany" name="company_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select company...</option>
                         @if (isset($companies))
                             @foreach ($companies as $id => $name)
@@ -50,7 +45,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Payment Method</label>
-                    <select id="invoicePaymentMethod" name="payment_method" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <select id="invoicePaymentMethod" name="payment_method" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="cash">Cash</option>
                         <option value="bank">Bank Transfer</option>
                         <option value="mobile">Mobile Money (M-Pesa / Tigopesa)</option>
@@ -60,12 +55,12 @@
 
                 <div class="hidden">
                     <label class="block text-sm font-medium text-slate-700 mb-2">Invoice type</label>
-                    <input type="text" readonly id="invoiceType" name="invoice_type" value="income" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <input type="text" readonly id="invoiceType" name="invoice_type" value="income" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Bank</label>
-                    <select id="bank_id" name="bank_id" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <select id="bank_id" name="bank_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select bank...</option>
                         @foreach ($virtualAccounts as $account)
                             <option value="{{ $account['id'] }}" @selected(isset($currentBankId) && (string) $currentBankId === (string) $account['id'])>
@@ -77,7 +72,7 @@
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-2">Category</label>
-                    <select id="category_id" name="category" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
+                    <select id="category_id" name="category" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="">Select category...</option>
                         @foreach ($incomeCategories as $category)
                             <option value="{{ $category['category_name'] }}" @selected(isset($currentCategoryId) && (string) $currentCategoryId === (string) $category['id'])>
@@ -97,21 +92,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-2">Client Name <span class="text-red-500">*</span></label>
-                        <input id="invoiceClientName" name="client_name" type="text" placeholder="e.g. Karibu Traders Ltd" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                        <input id="invoiceClientName" name="client_name" type="text" placeholder="e.g. Karibu Traders Ltd" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         <span class="invoice-error text-red-500 text-xs mt-1 hidden">Client name is required</span>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-2">Client Email</label>
-                        <input id="invoiceClientEmail" name="client_email" type="email" placeholder="client@example.com" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                        <input id="invoiceClientEmail" name="client_email" type="email" placeholder="client@example.com" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-2">Client Phone</label>
-                        <input id="invoiceClientPhone" name="client_phone" type="text" placeholder="+255 7XX XXX XXX" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                        <input id="invoiceClientPhone" name="client_phone" type="text" placeholder="+255 7XX XXX XXX" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                     </div>
                     <div></div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-slate-700 mb-2">Client Address</label>
-                        <textarea id="invoiceClientAddress" name="client_address" placeholder="Street, City, Tanzania" rows="2" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent"></textarea>
+                        <textarea id="invoiceClientAddress" name="client_address" placeholder="Street, City, Tanzania" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
                     </div>
                 </div>
             </div>
@@ -119,36 +114,36 @@
             <div class="pt-4 border-t border-slate-200">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-sm font-semibold text-slate-700 uppercase tracking-wider">Invoice Items</h3>
-                    <button type="button" onclick="addInvoiceItem()" class="flex items-center gap-2 text-sm px-3 py-1.5 text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-md transition-colors">
+                    <button type="button" onclick="addInvoiceItem()" class="inline-flex items-center gap-2 h-9 px-3 text-sm font-medium text-brand-700 bg-brand-50 hover:bg-brand-100">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         Add Item
                     </button>
                 </div>
 
                 <div id="invoiceItemsContainer" class="space-y-3">
-                    <div class="invoice-item-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 items-end p-3 border border-slate-200 rounded-md bg-white">
+                    <div class="invoice-item-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 items-end p-3 border border-slate-200 bg-white">
                         <div class="md:col-span-1">
                             <label class="block text-xs font-medium text-slate-500 mb-1">#</label>
                             <div class="text-sm font-medium text-slate-700">1</div>
                         </div>
                         <div class="md:col-span-5">
                             <label class="block text-xs font-medium text-slate-700 mb-1">Description</label>
-                            <input type="text" placeholder="Item description" class="invoice-item-desc w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                            <input type="text" placeholder="Item description" class="invoice-item-desc w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                             <span class="invoice-item-error text-red-500 text-xs mt-1 hidden">Description required</span>
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-xs font-medium text-slate-700 mb-1">Qty</label>
-                            <input type="number" min="1" step="1" value="1" class="invoice-item-qty w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                            <input type="number" min="1" step="1" value="1" class="invoice-item-qty w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-xs font-medium text-slate-700 mb-1">Unit Price (TZS)</label>
-                            <input type="number" min="0" step="0.01" placeholder="0.00" class="invoice-item-price w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                            <input type="number" min="0" step="0.01" placeholder="0.00" class="invoice-item-price w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                             <span class="invoice-item-error text-red-500 text-xs mt-1 hidden">Price required</span>
                         </div>
                         <div class="md:col-span-2 flex items-end gap-2">
                             <div class="flex-1">
                                 <label class="block text-xs font-medium text-slate-700 mb-1">Total (TZS)</label>
-                                <div class="invoice-item-total px-3 py-2 rounded-md border border-slate-200 bg-slate-50 text-slate-700 text-sm font-medium mono">0.00</div>
+                                <div class="invoice-item-total h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm font-medium mono flex items-center">0.00</div>
                             </div>
                         </div>
                     </div>
@@ -156,14 +151,14 @@
             </div>
 
             <div class="pt-4 border-t border-slate-200">
-                <div class="w-full bg-slate-50 border border-slate-200 rounded-md p-4 space-y-3">
+                <div class="w-full bg-slate-50 border border-slate-200 p-4 space-y-3">
                     <div class="flex justify-between items-center text-sm">
                         <span class="text-slate-600">Subtotal:</span>
                         <span id="invoiceSubtotal" class="font-medium text-slate-900 mono">0.00 TZS</span>
                     </div>
                     <div class=" flex justify-between items-center text-sm gap-3">
                         <span class="text-slate-600">Tax (%):</span>
-                        <input id="invoiceTaxRate" type="number" min="0" step="0.01" value="18" class="w-20 px-2 py-1 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent text-right text-sm" />
+                        <input id="invoiceTaxRate" type="number" min="0" step="0.01" value="18" class="w-20 h-9 px-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600 text-right" />
                     </div>
                     <div class=" flex justify-between items-center text-sm">
                         <span class="text-slate-600">Tax Amount:</span>
@@ -171,14 +166,14 @@
                     </div>
                     <div class="flex justify-between items-center text-sm gap-3">
                         <span class="text-slate-600">Discount (TZS):</span>
-                        <input id="invoiceDiscount" name="discount_amount" type="number" min="0" step="0.01" value="0" class="w-24 px-2 py-1 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent text-right text-sm" />
+                        <input id="invoiceDiscount" name="discount_amount" type="number" min="0" step="0.01" value="0" class="w-24 h-9 px-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600 text-right" />
                     </div>
                     <div class="pt-2 border-t border-slate-300 flex justify-between items-center text-lg">
                         <span class="font-semibold text-slate-900">Total:</span>
                         <span id="invoiceTotalAmount" class="font-semibold text-brand-600 mono">0.00 TZS</span>
                     </div>
                 </div>
-                <div class="mt-4 pt-4 border-t-2 border-brand-200 flex justify-between items-center bg-brand-50 px-4 py-4 rounded-md">
+                <div class="mt-4 pt-4 border-t-2 border-brand-200 flex justify-between items-center bg-brand-50 px-4 py-4">
                     <span class="text-lg font-bold text-slate-900">Overall Total:</span>
                     <span id="invoiceOverallTotal" class="text-2xl font-bold text-brand-600 mono">0.00 TZS</span>
                 </div>
@@ -186,7 +181,7 @@
 
             <div class="pt-4 border-t border-slate-200">
                 <label class="block text-sm font-medium text-slate-700 mb-2">Notes / Additional Info</label>
-                <textarea name="notes" id="invoiceNotes" placeholder="Payment terms, delivery instructions, or any additional notes..." rows="3" class="w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent"></textarea>
+                <textarea name="notes" id="invoiceNotes" placeholder="Payment terms, delivery instructions, or any additional notes..." rows="3" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
             </div>
 
             <input type="hidden" id="invoiceSubtotalHidden" name="subtotal" value="0">
@@ -196,9 +191,8 @@
         </form>
 
         <div class="px-6 py-4 border-t border-slate-200 flex justify-end gap-3">
-            <button type="button" onclick="closeInvoiceModal()" class="px-4 py-2 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors text-sm font-medium">Cancel</button>
-
-            <button type="button" onclick="saveInvoiceAsDraft()" class="px-4 py-2 rounded-md border border-slate-300 text-slate-600 hover:bg-slate-50 transition-colors text-sm font-medium">Save</button>
+            <button type="button" onclick="closeInvoiceModal()" class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button type="button" onclick="saveInvoiceAsDraft()" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Save</button>
 
             {{-- 
                 <button type="button" onclick="sendInvoice()" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white transition-colors text-sm font-medium">
@@ -354,7 +348,7 @@
         itemCounter++;
 
         const row = document.createElement('div');
-        row.className = 'invoice-item-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 items-end p-3 border border-slate-200 rounded-md bg-white';
+        row.className = 'invoice-item-row grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-2 items-end p-3 border border-slate-200 bg-white';
         row.innerHTML = `
             <div class="md:col-span-1">
                 <label class="block text-xs font-medium text-slate-500 mb-1">#</label>
@@ -362,24 +356,24 @@
             </div>
             <div class="md:col-span-5">
                 <label class="block text-xs font-medium text-slate-700 mb-1">Description</label>
-                <input type="text" placeholder="Item description" class="invoice-item-desc w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                <input type="text" placeholder="Item description" class="invoice-item-desc w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                 <span class="invoice-item-error text-red-500 text-xs mt-1 hidden">Description required</span>
             </div>
             <div class="md:col-span-2">
                 <label class="block text-xs font-medium text-slate-700 mb-1">Qty</label>
-                <input type="number" min="1" step="1" value="1" class="invoice-item-qty w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                <input type="number" min="1" step="1" value="1" class="invoice-item-qty w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
             </div>
             <div class="md:col-span-2">
                 <label class="block text-xs font-medium text-slate-700 mb-1">Unit Price (TZS)</label>
-                <input type="number" min="0" step="0.01" placeholder="0.00" class="invoice-item-price w-full px-3 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-transparent" />
+                <input type="number" min="0" step="0.01" placeholder="0.00" class="invoice-item-price w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                 <span class="invoice-item-error text-red-500 text-xs mt-1 hidden">Price required</span>
             </div>
             <div class="md:col-span-2 flex items-end gap-2">
                 <div class="flex-1">
                     <label class="block text-xs font-medium text-slate-700 mb-1">Total (TZS)</label>
-                    <div class="invoice-item-total px-3 py-2 rounded-md border border-slate-200 bg-slate-50 text-slate-700 text-sm font-medium mono">0.00</div>
+                    <div class="invoice-item-total h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm font-medium mono flex items-center">0.00</div>
                 </div>
-                <button type="button" onclick="removeInvoiceItem(this)" class="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-md transition-colors">
+                <button type="button" onclick="removeInvoiceItem(this)" class="text-red-500 hover:text-red-700 p-2 hover:bg-red-50">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                 </button>
             </div>

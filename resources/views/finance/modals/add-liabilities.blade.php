@@ -9,7 +9,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Liability Code</label>
             <input type="text" name="code"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500"
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                 required>
         </div>
         --}}
@@ -17,14 +17,14 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Liability Name</label>
             <input type="text" name="name"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500"
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                 required>
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Company</label>
             <select name="company_id"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Company</option>
                 @if (isset($companies))
                     @foreach ($companies as $id => $name)
@@ -37,7 +37,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Type</label>
             <select name="type"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Type</option>
                 <option>Long-term Loan</option>
                 <option>Current Liability</option>
@@ -48,7 +48,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Term</label>
             <select name="term"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Term</option>
                 <option>Short-term</option>
                 <option>Long-term</option>
@@ -59,7 +59,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Category</label>
             <select name="category_id" id="liabilityCategorySelect"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <!-- Options populated from categories table -->
                 <option value="">Select Category</option>
                 @if (isset($liabilityCategories))
@@ -74,38 +74,38 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Creditor</label>
             <input type="text" name="creditor"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-slate-700">Original Amount</label>
                 <input type="number" name="original_amount"
-                    class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                    class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             </div>
             <div>
                 <label class="block text-sm font-medium text-slate-700">Current Amount</label>
                 <input type="number" name="current_amount"
-                    class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                    class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             </div>
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Interest Rate</label>
             <input type="text" name="interest_rate" placeholder="e.g. 12% or N/A"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Due Date</label>
             <input type="date" name="due_date"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Status</label>
             <select name="status"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Status</option>
                 <option>Active</option>
                 <option>Closed</option>
@@ -116,9 +116,8 @@
         <!-- Submit -->
         <div class="flex justify-end gap-3 pt-4">
             <button type="button" onclick="closeModal()"
-                class="px-4 py-2 border border-slate-300 rounded hover:bg-slate-100">Cancel</button>
-            <button type="submit" class="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">Save
-                Liability</button>
+                class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Save Liability</button>
         </div>
     </form>
 

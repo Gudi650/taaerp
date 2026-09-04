@@ -1,11 +1,11 @@
-<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hidden" id="liabilitiesPane">
+<div class="bg-white shadow-sm overflow-hidden hidden" id="liabilitiesPane">
 
     <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
         <span class="text-base font-semibold text-slate-800">Recent Liabilities</span>
     </div>
 
     <table class="w-full text-sm">
-        <thead class="bg-slate-50 border-b border-slate-200">
+        <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
             <tr>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Code</th>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Name</th>
@@ -20,13 +20,7 @@
                     <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ $liability['code'] }}</td>
                     <td class="px-4 py-3 font-medium text-slate-800">{{ $liability['name'] }}</td>
                     <td class="px-4 py-3">
-                        @if (!empty($liability['term'] === 'Long-term'))
-                            <span
-                                class="inline-flex px-2 py-0.5 rounded-full text-xs bg-purple-100 text-purple-700 border border-purple-200">{{ $liability['term'] }}</span>
-                        @else
-                            <span
-                                class="inline-flex px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 border border-blue-200">{{ $liability['term'] }}</span>
-                        @endif
+                        <span class="px-2 py-0.5 text-[11px] font-medium bg-brand-50 text-brand-700">{{ $liability['term'] ?? '—' }}</span>
                     </td>
                     <td class="px-4 py-3 text-right font-mono">TZS {{ number_format($liability['current_amount'], 0) }}
                     </td>

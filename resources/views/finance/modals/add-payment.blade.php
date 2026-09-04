@@ -1,28 +1,14 @@
 <div id="paymentModalBackdrop"
-    class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-6 pb-6 px-4">
+    class="hidden fixed inset-0 bg-transparent z-50 flex items-start justify-center pt-20 pb-6 px-4">
     <div id="paymentModalCard"
-        class="payment-modal-card bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl mx-auto max-h-[92vh] flex flex-col">
-        <!-- Sticky Header -->
-        <div
-            class="sticky top-0 bg-white z-10 px-6 pt-5 pb-4 border-b border-slate-100 flex items-center justify-between rounded-t-2xl">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                            d="M3 10h18M7 15h10M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Zm3 4h.01M16 14h.01" />
-                    </svg>
-                </div>
-                <div>
-                    <h2 id="paymentModalTitle" class="text-lg font-semibold text-slate-800">Record Payment</h2>
-                    <p id="paymentModalSubtitle" class="text-xs text-slate-400 mt-0.5">Record an incoming or outgoing payment</p>
-                </div>
+        class="payment-modal-card bg-white shadow-sm border-l-4 border-l-brand-600 w-full max-w-2xl mx-auto max-h-[92vh] flex flex-col">
+        <div class="sticky top-0 bg-white z-10 px-6 py-4 flex items-center justify-between">
+            <div>
+                <h2 id="paymentModalTitle" class="text-lg font-semibold text-brand-700 font-display">Record Payment</h2>
+                <p id="paymentModalSubtitle" class="text-xs text-slate-500 mt-0.5">Record an incoming or outgoing payment</p>
             </div>
-            <button type="button" onclick="closePaymentModal()"
-                class="w-8 h-8 rounded-lg hover:bg-slate-100 transition-all flex items-center justify-center"
-                aria-label="Close payment modal">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+            <button type="button" onclick="closePaymentModal()" class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100" aria-label="Close">
+                <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
 
@@ -36,7 +22,7 @@
                 <!-- Section 1: Payment Details -->
                 <section>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-1 h-5 bg-brand-500 rounded-full"></div>
+                        <div class="w-1 h-5 bg-brand-600"></div>
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Payment
                             Details</span>
                         <div class="flex-1 h-px bg-slate-100"></div>
@@ -46,17 +32,17 @@
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Payment Reference</label>
                             <input type="text" id="paymentId" name="payment_reference" placeholder="PAY-0000"
                                 readonly
-                                class="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 font-mono text-slate-500 cursor-not-allowed focus:border-slate-200 focus:ring-0">
+                                class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm font-mono outline-none cursor-not-allowed">
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Payment Date</label>
                             <input type="date" id="paymentDate" name="payment_date"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Company / Received By</label>
                             <select id="paymentCompany" name="company"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">Select company...</option>
                                 @if (isset($companies))
                                     @foreach ($companies as $id => $name)
@@ -68,7 +54,7 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Payment Direction</label>
                             <select id="paymentDirection" name="payment_direction"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">Select direction...</option>
                                 <option value="Incoming">Incoming (Money Received)</option>
                                 <option value="Outgoing">Outgoing (Money Sent)</option>
@@ -79,7 +65,7 @@
                                 From</label>
                             <input type="text" id="paymentParty" name="party_name"
                                 placeholder="Client or supplier name"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         </div>
                     </div>
                 </section>
@@ -87,7 +73,7 @@
                 <!-- Section 2: Payment Classification -->
                 <section>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-1 h-5 bg-brand-500 rounded-full"></div>
+                        <div class="w-1 h-5 bg-brand-600"></div>
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Payment
                             Classification</span>
                         <div class="flex-1 h-px bg-slate-100"></div>
@@ -96,7 +82,7 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Payment Method</label>
                             <select id="paymentMethod" name="payment_method"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">Select method...</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Bank Transfer">Bank Transfer</option>
@@ -109,12 +95,12 @@
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Reference Number</label>
                             <input type="text" id="paymentReferenceNumber" name="reference_number"
                                 placeholder="Cheque no., M-Pesa code, bank ref..."
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Payment Category</label>
                             <select id="paymentCategory" name="payment_category"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">Select category...</option>
                                 <option value="Invoice Settlement">Invoice Settlement</option>
                                 <option value="Expense Reimbursement">Expense Reimbursement</option>
@@ -128,7 +114,7 @@
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Linked To</label>
                             <input type="text" id="paymentLinkedTo" name="linked_to"
                                 placeholder="INV-XXXX or EXP-XXXX (optional)"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         </div>
                     </div>
                 </section>
@@ -136,26 +122,24 @@
                 <!-- Section 3: Amount -->
                 <section>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-1 h-5 bg-brand-500 rounded-full"></div>
+                        <div class="w-1 h-5 bg-brand-600"></div>
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Amount</span>
                         <div class="flex-1 h-px bg-slate-100"></div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Amount</label>
-                            <div
-                                class="flex items-stretch rounded-lg border border-slate-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand-500/20 focus-within:border-brand-500">
-                                <span
-                                    class="inline-flex items-center border-r border-slate-200 bg-slate-50 px-3 text-sm font-semibold text-slate-500">TZS</span>
+                            <div class="flex items-stretch border border-slate-200">
+                                <span class="inline-flex items-center border-r border-slate-200 bg-brand-50 px-3 text-sm font-medium text-brand-700">TZS</span>
                                 <input type="number" id="paymentAmount" name="amount" min="0"
                                     step="0.01" placeholder="0.00"
-                                    class="w-full px-3 py-2.5 text-slate-700 focus:outline-none">
+                                    class="w-full h-9 px-3 text-sm outline-none focus:border-brand-600">
                             </div>
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Currency</label>
                             <select id="paymentCurrency" name="currency"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="TZS">TZS</option>
                                 <option value="USD">USD</option>
                                 <option value="EUR">EUR</option>
@@ -166,11 +150,11 @@
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Exchange Rate</label>
                             <input type="number" id="paymentExchangeRate" name="exchange_rate" min="0"
                                 step="0.01" value="1.00"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         </div>
                         <div id="paymentTzsEquivalentWrap" class="hidden">
                             <div
-                                class="h-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 flex items-center justify-between">
+                                class="h-full border border-slate-200 bg-brand-50 px-4 py-3 flex items-center justify-between">
                                 <div>
                                     <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">TZS
                                         Equivalent</p>
@@ -186,7 +170,7 @@
                 <!-- Section 4: Status & Notes -->
                 <section>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-1 h-5 bg-brand-500 rounded-full"></div>
+                        <div class="w-1 h-5 bg-brand-600"></div>
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Status &
                             Notes</span>
                         <div class="flex-1 h-px bg-slate-100"></div>
@@ -194,11 +178,11 @@
                     <div class="space-y-4">
                         <div>
                             <div class="mb-1.5 flex items-center gap-2">
-                                <span id="paymentStatusDot" class="w-2.5 h-2.5 rounded-full bg-brand-600"></span>
+                                <span id="paymentStatusDot" class="w-2.5 h-2.5 bg-brand-600"></span>
                                 <label class="block text-sm font-medium text-slate-700">Payment Status</label>
                             </div>
                             <select id="paymentStatus" name="payment_status"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20">
+                                class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Completed">Completed</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Failed">Failed</option>
@@ -208,7 +192,7 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-slate-700">Notes</label>
                             <textarea id="paymentNotes" name="notes" rows="3" placeholder="Additional notes about this payment..."
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"></textarea>
+                                class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
                         </div>
                     </div>
                 </section>
@@ -216,16 +200,16 @@
                 <!-- Section 5: Attachment -->
                 <section>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-1 h-5 bg-brand-500 rounded-full"></div>
+                        <div class="w-1 h-5 bg-brand-600"></div>
                         <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Attachment</span>
                         <div class="flex-1 h-px bg-slate-100"></div>
                     </div>
                     <div class="space-y-3">
                         <!-- Upload zone -->
                         <div onclick="document.getElementById('paymentProofFile').click()"
-                            class="border-2 border-dashed border-slate-200 rounded-xl p-5 flex flex-col items-center justify-center text-center hover:border-brand-500 hover:bg-brand-50/50 transition-all duration-200 cursor-pointer group">
+                            class="border-2 border-dashed border-slate-200 p-5 flex flex-col items-center justify-center text-center hover:border-brand-600 hover:bg-brand-50 cursor-pointer group">
                             <div
-                                class="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-brand-100 flex items-center justify-center mb-3 transition-colors">
+                                class="w-10 h-10 bg-slate-100 group-hover:bg-brand-100 flex items-center justify-center mb-3">
                                 <svg class="w-5 h-5 text-slate-400 group-hover:text-brand-600" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -242,7 +226,7 @@
                         <!-- File preview area -->
                         <div id="paymentFilePreview" class="mt-3 hidden">
                             <div
-                                class="flex items-center gap-3 px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                class="flex items-center gap-3 px-4 py-3 bg-slate-50 border border-slate-200">
                                 <div id="paymentFilePreviewContent" class="min-w-0 flex-1"></div>
                             </div>
                         </div>
@@ -252,13 +236,13 @@
 
             <!-- Sticky Footer -->
             <div
-                class="sticky bottom-0 bg-white border-t border-slate-100 px-6 py-4 rounded-b-2xl flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+                class="sticky bottom-0 bg-white border-t border-slate-200 px-6 py-4 flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
                 <button type="button" onclick="closePaymentModal()"
-                    class="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all">
+                    class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">
                     Cancel
                 </button>
                 <button type="submit" id="paymentDraftButton" name="submit_mode" value="draft"
-                    class="px-4 py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all inline-flex items-center gap-2">
+                    class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50 inline-flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                             d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H5Z" />
@@ -268,7 +252,7 @@
                     Save as Draft
                 </button>
                 <button type="submit" id="paymentSubmitButton" name="submit_mode" value="submit"
-                    class="px-5 py-2.5 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700 transition-all flex items-center gap-2">
+                    class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium inline-flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 13l4 4L19 7" />
                     </svg>
@@ -326,7 +310,7 @@
                 Reversed: 'bg-slate-500',
             };
 
-            dot.className = `w-2.5 h-2.5 rounded-full ${colors[status] || colors.Completed}`;
+            dot.className = `w-2.5 h-2.5 ${colors[status] || colors.Completed}`;
         }
 
         function updateTzsEquivalent() {
@@ -376,7 +360,7 @@
                 reader.onload = (event) => {
                     content.innerHTML = `
                         <div class="flex items-center gap-3 min-w-0">
-                            <img src="${event.target.result}" alt="Payment proof preview" class="h-12 w-12 rounded-lg object-cover border border-slate-200">
+                            <img src="${event.target.result}" alt="Payment proof preview" class="h-12 w-12 object-cover border border-slate-200">
                             <div class="min-w-0">
                                 <p class="text-sm font-medium text-slate-700 truncate">${file.name}</p>
                                 <p class="text-xs text-slate-400">Image selected</p>
@@ -390,7 +374,7 @@
 
             content.innerHTML = `
                 <div class="flex items-center gap-3 min-w-0">
-                    <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500 shrink-0">
+                    <div class="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-slate-500 shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21h10a2 2 0 0 0 2-2V7.828a2 2 0 0 0-.586-1.414l-3.828-3.828A2 2 0 0 0 13.172 2H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2Z"/>
                         </svg>
@@ -419,7 +403,7 @@
             if (payment.attachment_is_image) {
                 content.innerHTML = `
                     <div class="flex items-center gap-3 min-w-0">
-                        <img src="${payment.attachment_url}" alt="Payment proof preview" class="h-12 w-12 rounded-lg object-cover border border-slate-200">
+                        <img src="${payment.attachment_url}" alt="Payment proof preview" class="h-12 w-12 object-cover border border-slate-200">
                         <div class="min-w-0">
                             <p class="text-sm font-medium text-slate-700 truncate">${payment.original_proof_filename || 'Payment attachment'}</p>
                             <a href="${payment.attachment_url}" target="_blank" rel="noopener" class="text-xs text-brand-700 hover:text-brand-800">Open attachment</a>
@@ -431,7 +415,7 @@
 
             content.innerHTML = `
                 <div class="flex items-center gap-3 min-w-0">
-                    <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500 shrink-0">
+                    <div class="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-slate-500 shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21h10a2 2 0 0 0 2-2V7.828a2 2 0 0 0-.586-1.414l-3.828-3.828A2 2 0 0 0 13.172 2H7a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2Z"/>
                         </svg>

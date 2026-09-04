@@ -1,16 +1,11 @@
 <script>
     //rendering the button with onclick function ready to go
     function renderButton(label, onclick) {
-        return `<button onclick="${onclick}" class="w-full lg:w-auto flex-shrink-0 whitespace-nowrap px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium transition-colors">
-                    ${label}
-                </button>`;
+        return `<button type="button" onclick="${onclick}" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">${label}</button>`;
     }
 
-    //function to render the section button if needed
     function renderSectionButton(label, onclick) {
-        return `<button onclick="${onclick}" class="w-full lg:w-auto flex-shrink-0 whitespace-nowrap px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-md text-sm font-medium transition-colors">
-                    ${label}
-                </button>`;
+        return `<button type="button" onclick="${onclick}" class="h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">${label}</button>`;
     }
 
     // Toggle visibility of content panes based on active tab
@@ -384,14 +379,15 @@
 
         // Remove active state from all buttons
         tabBtns.forEach(btn => {
-            btn.classList.remove('text-slate-700', 'border-brand-600', 'border-b-2');
-            btn.classList.add('text-slate-500');
+            btn.classList.remove('bg-brand-600', 'text-white');
+            btn.classList.add('text-brand-700');
+            btn.querySelector('span')?.classList.replace('bg-white', 'bg-brand-50');
         });
 
-        // Add active state to clicked button
         if (btnEl) {
-            btnEl.classList.remove('text-slate-500');
-            btnEl.classList.add('text-slate-700', 'border-brand-600', 'border-b-2');
+            btnEl.classList.add('bg-brand-600', 'text-white');
+            btnEl.classList.remove('text-brand-700');
+            btnEl.querySelector('span')?.classList.replace('bg-brand-50', 'bg-white');
         }
 
         // Toggle content panes
@@ -400,6 +396,7 @@
         // Update section title and action button
         const sectionTitle = document.getElementById('sectionTitle');
         const actionButton = document.getElementById('actionButton');
+        const sectionButton = document.getElementById('sectionButton');
 
         if (tab === 'invoices') {
             sectionTitle.textContent = 'Invoices';

@@ -1,11 +1,11 @@
-<div id="assetsPane" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hidden">
+<div id="assetsPane" class="bg-white shadow-sm overflow-hidden hidden">
 
     <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
         <span class="text-base font-semibold text-slate-800">Recent Assets</span>
     </div>
 
     <table class="w-full text-sm">
-        <thead class="bg-slate-50 border-b border-slate-200">
+        <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
             <tr>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Code</th>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">Name</th>
@@ -37,7 +37,7 @@
 
                     <td class="px-4 py-3 text-right">
 
-                        <button type="button" class="text-blue-600 hover:text-blue-800 transition-colors"
+                        <button type="button" class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100"
                             title="Edit asset" aria-label="Edit asset"
                             onclick="openEditAssetModal({{ $asset['id'] }})">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

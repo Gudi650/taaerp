@@ -5,7 +5,7 @@
         <!-- Company -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Company</label>
-            <select name="company_id" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+            <select name="company_id" class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
 
                 <option value="">Select company...</option>
                 @if (isset($companies))
@@ -21,44 +21,46 @@
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Asset Name</label>
             <input type="text" name="asset_name"
-                class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <!-- Book Value -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Book Value</label>
             <input type="number" step="0.01" id="book_value" name="book_value"
-                class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <!-- Revalued Amount -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Revalued Amount</label>
             <input type="number" step="0.01" id="revalued_amount" name="revalued_amount"
-                class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <!-- Surplus -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Revaluation Surplus</label>
             <input type="text" id="surplus" name="surplus" readonly
-                class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-slate-100">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none">
         </div>
 
         <!-- Date -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Date of Revaluation</label>
             <input type="date" name="date_of_revaluation"
-                class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <!-- Notes -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-slate-700">Notes</label>
-            <textarea name="notes" class="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"></textarea>
+            <textarea name="notes" class="mt-1 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
         </div>
 
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Save Revaluation</button>
+        <div class="flex gap-3 justify-end pt-2">
+            <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Save Revaluation</button>
+        </div>
     </form>
 </div>
 

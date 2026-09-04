@@ -8,14 +8,14 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Asset Name</label>
             <input type="text" name="name"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500"
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                 required>
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Company</label>
             <select name="company_id"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Company</option>
                 @if (isset($companies))
                     @foreach ($companies as $id => $name)
@@ -28,7 +28,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Type</label>
             <select name="type"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Type</option>
                 <option>Fixed Asset</option>
                 <option>Current Asset</option>
@@ -41,7 +41,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Term</label>
             <select name="term"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Term</option>
                 <option>Short-term</option>
                 <option>Long-term</option>
@@ -57,7 +57,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Category</label>
             <select name="category_id" id="assetCategorySelect"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <!-- Options populated from categories table -->
                 <option value="">Select Category</option>
                 @if (isset($assetsCategories))
@@ -73,7 +73,7 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Account</label>
             <select name="account_id" id="assetAccountSelect"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <!-- Options populated from accounts table -->
                 <option value="">Select Account</option>
                 @if (isset($virtualAccounts))
@@ -90,12 +90,12 @@
             <div>
                 <label class="block text-sm font-medium text-slate-700">Original Value</label>
                 <input type="number" name="original_value"
-                    class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                    class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             </div>
             <div>
                 <label class="block text-sm font-medium text-slate-700">Current Value</label>
                 <input type="number" name="current_value"
-                    class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                    class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             </div>
         </div>
 
@@ -103,20 +103,20 @@
         <div>
             <label class="block text-sm font-medium text-slate-700">Depreciation Value(%) per Year</label>
             <input type="text" name="depreciation_value"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Acquisition Date</label>
             <input type="date" name="acquired"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <div>
             <label class="block text-sm font-medium text-slate-700">Status</label>
             <select name="status"
-                class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500">
+                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="">Select Status</option>
                 <option>Active</option>
                 <option>Disposed</option>
@@ -128,10 +128,8 @@
         <!-- Submit -->
         <div class="flex justify-end gap-3 pt-4">
             <button type="button" onclick="closeModal()"
-                class="px-4 py-2 border border-slate-300 rounded hover:bg-slate-100">Cancel</button>
-
-            <button type="submit" class="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">Save
-                Asset</button>
+                class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
+            <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Save Asset</button>
 
         </div>
     </form>

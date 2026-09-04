@@ -1,8 +1,8 @@
 <div id="accountsPane" class="hidden">
 
-    <div class="overflow-x-auto bg-white ">
+    <div class="overflow-x-auto bg-white shadow-sm">
         <table class="min-w-full text-sm">
-            <thead class="bg-slate-50 text-slate-600">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
                     <th class="px-4 py-2 text-left">Account Name</th>
                     <th class="px-4 py-2 text-left">Bank Name</th>
@@ -27,7 +27,7 @@
                             {{ number_format($account['balance'], 2) }}
                         </td>
                         <td class="px-4 py-2">
-                            <span class="{{ $account['status'] === 'active' ? 'text-green-600' : 'text-red-600' }}">
+                            <span class="px-2 py-0.5 text-[11px] font-medium {{ $account['status'] === 'active' ? 'bg-brand-50 text-brand-700' : 'bg-red-50 text-red-600' }}">
                                 {{ ucfirst($account['status']) }}
                             </span>
                         </td>

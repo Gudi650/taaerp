@@ -1,19 +1,17 @@
 <!-- Item Creation -->
-<div id="addItemsModal" class="bg-white border rounded shadow-sm p-6 mb-8 hidden ">
-    <h2 class="text-lg font-semibold mb-4">Create Item</h2>
-
-    <form action="{{ route('items.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6"
+<div id="addItemsModal" class="hidden">
+    <form action="{{ route('items.store') }}" method="POST" class="space-y-4"
         onsubmit="showItemsCreateLoader()">
         @csrf
 
         <div>
-            <label class="block text-sm font-medium text-slate-700">Item Name</label>
-            <input name="item_name" type="text" class="mt-1 block w-full border rounded px-3 py-2">
+            <label class="block text-sm text-slate-600 mb-1">Item Name</label>
+            <input name="item_name" type="text" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-slate-700">Category</label>
-            <select name="category_id" class="mt-1 block w-full border rounded px-3 py-2">
+            <label class="block text-sm text-slate-600 mb-1">Category</label>
+            <select name="category_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option>Choose Category</option>
 
                 @forelse ($itemsCategories as $category)
@@ -26,28 +24,23 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-slate-700">Item Type</label>
-
-            <select name="type" class="mt-1 block w-full border rounded px-3 py-2">
+            <label class="block text-sm text-slate-600 mb-1">Item Type</label>
+            <select name="type" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                 <option value="general">Material</option>
                 <option value="asset">Asset</option>
                 <option value="liability">Liability</option>
             </select>
-
         </div>
 
-        <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-slate-700">Notes</label>
-            <textarea name="description" rows="2" class="mt-1 block w-full border rounded px-3 py-2"></textarea>
+        <div>
+            <label class="block text-sm text-slate-600 mb-1">Notes</label>
+            <textarea name="description" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
         </div>
 
-        <div class="md:col-span-2 flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add
-                Item</button>
+        <div class="flex gap-3 justify-end pt-2">
+            <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Add Item</button>
         </div>
-
     </form>
-
 </div>
 
 <x-loading id="itemsCreateLoader" fullPage="true" class="hidden" />
