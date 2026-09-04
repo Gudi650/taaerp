@@ -1,18 +1,28 @@
 <script>
-    // Tab switching for UI only (tables are hardcoded)
+    function renderButton(label, onclick) {
+        return `<button type="button" onclick="${onclick}" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">${label}</button>`;
+    }
+
     function switchTab(tab, btnEl) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
         document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('border-brand-600', 'text-slate-700', 'border-b-2');
-            b.classList.add('text-slate-500');
+            b.classList.remove('bg-brand-600', 'text-white');
+            b.classList.add('text-brand-700');
+            b.querySelector('span')?.classList.replace('bg-white', 'bg-brand-50');
         });
         const content = document.getElementById('tab-' + tab);
         if (content) content.classList.remove('hidden');
         if (!btnEl) btnEl = document.querySelector('.tab-btn');
         if (btnEl) {
-            btnEl.classList.add('border-b-2', 'border-brand-600', 'text-slate-700');
-            btnEl.classList.remove('text-slate-500');
+            btnEl.classList.add('bg-brand-600', 'text-white');
+            btnEl.classList.remove('text-brand-700');
+            btnEl.querySelector('span')?.classList.replace('bg-brand-50', 'bg-white');
         }
+        const actionButton = document.getElementById('actionButton');
+        if (!actionButton) return;
+        if (tab === 'customers') actionButton.innerHTML = renderButton('Add Customer', 'openAddCustomerModal()');
+        else if (tab === 'orders') actionButton.innerHTML = renderButton('Add Order', 'openAddOrderModal()');
+        else if (tab === 'contracts') actionButton.innerHTML = renderButton('Add Contract', 'openAddContractModal()');
     }
 
     // Modal helpers
@@ -324,21 +334,21 @@
         row.innerHTML = `
             <td class="px-3 py-2 text-sm text-slate-600 item-number">${index}</td>
             <td class="px-3 py-2">
-                <select class="order-product block w-full border border-slate-200 rounded p-2 text-sm" onchange="handleOrderProductChange(this)">
+                <select class="order-product w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" onchange="handleOrderProductChange(this)">
                     ${window.orderProductOptionsHtml || '<option value="">-- Select Product --</option>'}
                 </select>
             </td>
             <td class="px-3 py-2">
-                <input type="text" class="order-sku block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50" readonly />
+                <input type="text" class="order-sku w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" readonly />
             </td>
             <td class="px-3 py-2">
-                <input type="text" class="order-description block w-full border border-slate-200 rounded p-2 text-sm" />
+                <input type="text" class="order-description w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
             </td>
             <td class="px-3 py-2">
-                <input type="number" min="1" value="1" class="order-qty block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                <input type="number" min="1" value="1" class="order-qty w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
             </td>
             <td class="px-3 py-2">
-                <select class="order-uom block w-full border border-slate-200 rounded p-2 text-sm">
+                <select class="order-uom w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     <option value="Piece">Piece</option>
                     <option value="Box">Box</option>
                     <option value="Kg">Kg</option>
@@ -346,13 +356,13 @@
                 </select>
             </td>
             <td class="px-3 py-2">
-                <input type="number" min="0" value="0" class="order-unit-price block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                <input type="number" min="0" value="0" class="order-unit-price w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
             </td>
             <td class="px-3 py-2">
-                <input type="number" min="0" value="0" class="order-discount block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                <input type="number" min="0" value="0" class="order-discount w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
             </td>
             <td class="px-3 py-2">
-                <input type="text" class="order-total block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50" readonly value="0.00" />
+                <input type="text" class="order-total w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" readonly value="0.00" />
             </td>
             <td class="px-3 py-2">
                 <div class="space-y-1">
@@ -361,7 +371,7 @@
                 </div>
             </td>
             <td class="px-3 py-2 text-center">
-                <button type="button" class="remove-order-item inline-flex h-9 w-9 items-center justify-center rounded border border-slate-200 text-red-600 hover:bg-red-50 ${isFirst ? 'hidden' : ''}" onclick="removeOrderItemRow(this)">
+                <button type="button" class="remove-order-item inline-flex h-9 w-9 items-center justify-center border border-slate-200 text-red-600 hover:bg-red-50 ${isFirst ? 'hidden' : ''}" onclick="removeOrderItemRow(this)">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-6 0h6" />
                     </svg>
@@ -914,21 +924,21 @@
                     row.innerHTML = `
                         <td class="px-3 py-2 text-sm text-slate-600 item-number">${index + 1}</td>
                         <td class="px-3 py-2">
-                            <select class="order-product block w-full border border-slate-200 rounded p-2 text-sm" onchange="handleOrderProductChange(this)">
+                            <select class="order-product w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" onchange="handleOrderProductChange(this)">
                                 ${productSelectHtml}
                             </select>
                         </td>
                         <td class="px-3 py-2">
-                            <input type="text" class="order-sku block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50" readonly />
+                            <input type="text" class="order-sku w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" readonly />
                         </td>
                         <td class="px-3 py-2">
-                            <input type="text" class="order-description block w-full border border-slate-200 rounded p-2 text-sm" value="${(item.description || '').replace(/"/g, '&quot;')}" />
+                            <input type="text" class="order-description w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" value="${(item.description || '').replace(/"/g, '&quot;')}" />
                         </td>
                         <td class="px-3 py-2">
-                            <input type="number" min="1" value="${item.quantity || 1}" class="order-qty block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                            <input type="number" min="1" value="${item.quantity || 1}" class="order-qty w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
                         </td>
                         <td class="px-3 py-2">
-                            <select class="order-uom block w-full border border-slate-200 rounded p-2 text-sm">
+                            <select class="order-uom w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Piece" ${item.unit_of_measure === 'Piece' ? 'selected' : ''}>Piece</option>
                                 <option value="Box" ${item.unit_of_measure === 'Box' ? 'selected' : ''}>Box</option>
                                 <option value="Kg" ${item.unit_of_measure === 'Kg' ? 'selected' : ''}>Kg</option>
@@ -936,13 +946,13 @@
                             </select>
                         </td>
                         <td class="px-3 py-2">
-                            <input type="number" min="0" value="${item.unit_price || 0}" class="order-unit-price block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                            <input type="number" min="0" value="${item.unit_price || 0}" class="order-unit-price w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
                         </td>
                         <td class="px-3 py-2">
-                            <input type="number" min="0" value="${item.discount_percent || 0}" class="order-discount block w-full border border-slate-200 rounded p-2 text-sm" oninput="recalculateOrderTotals()" />
+                            <input type="number" min="0" value="${item.discount_percent || 0}" class="order-discount w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" oninput="recalculateOrderTotals()" />
                         </td>
                         <td class="px-3 py-2">
-                            <input type="number" min="0" value="${item.line_total || 0}" class="order-total block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50" readonly />
+                            <input type="number" min="0" value="${item.line_total || 0}" class="order-total w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" readonly />
                         </td>
                         <td class="px-3 py-2 text-center">
                             <button type="button" onclick="removeOrderItemRow(this)" class="text-red-600 hover:text-red-700">
@@ -1232,9 +1242,9 @@
 
         if (shouldOpen) {
             targetRow.classList.remove('hidden');
-            buttonEl?.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-300');
+            buttonEl?.classList.add('bg-brand-50', 'text-brand-700', 'border-brand-600');
         } else {
-            buttonEl?.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-300');
+            buttonEl?.classList.remove('bg-brand-50', 'text-brand-700', 'border-brand-600');
         }
     }
 

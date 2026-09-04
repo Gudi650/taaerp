@@ -1,26 +1,17 @@
 <div id="tab-contracts" class="tab-content hidden">
-    <div class="flex flex-col gap-3 mb-6 lg:flex-row lg:items-center lg:justify-between">
-        <h2 class="text-lg font-semibold font-display">Contracts</h2>
-        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto lg:items-center">
-            <button onclick="openAddContractModal()"
-                class="w-full sm:w-auto flex-shrink-0 whitespace-nowrap px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium transition-colors">Add
-                Contract</button>
-        </div>
-    </div>
-    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Contract No.</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Client</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Value</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Start Date</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">End Date</th>
-                        <th class="px-4 py-3 text-left text-xs uppercase tracking-wider font-medium text-slate-500">Status</th>
-                        <th class="px-4 py-3 text-center text-xs uppercase tracking-wider font-medium text-slate-500">Actions</th>
-                    </tr>
-                </thead>
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
+                <tr>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Contract No.</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Client</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Value</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Start Date</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">End Date</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                    <th class="px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-wide">Actions</th>
+                </tr>
+            </thead>
                 <tbody id="contractsTable" class="divide-y divide-slate-100">
                     @forelse(($contracts ?? []) as $contract)
                         <tr class="hover:bg-slate-50/60">
@@ -50,12 +41,12 @@
                                     ];
                                     $statusClass = $statusStyles[$status] ?? 'bg-slate-100 text-slate-700';
                                 @endphp
-                                <span class="px-2 py-1 rounded text-xs {{ $statusClass }}">{{ $status }}</span>
+                                <span class="px-2 py-1 text-xs {{ $statusClass }}">{{ $status }}</span>
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <button type="button" onclick="toggleContractDetails({{ $contract->id }}, this)" 
-                                        class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-200 text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-colors"
+                                        class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50"
                                         title="View details">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -63,14 +54,14 @@
                                         </svg>
                                     </button>
                                     <button type="button" onclick="editContract({{ $contract->id }})" 
-                                        class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-200 text-slate-600 hover:bg-amber-50 hover:text-amber-600 hover:border-amber-300 transition-colors"
+                                        class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-brand-700 hover:bg-brand-50"
                                         title="Edit contract">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                     </button>
                                     <button type="button" onclick="confirmDeleteContract({{ $contract->id }}, '{{ $contract->contract_number }}')" 
-                                        class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-200 text-slate-600 hover:bg-red-50 hover:text-red-600 hover:border-red-300 transition-colors"
+                                        class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-red-600 hover:bg-red-50"
                                         title="Delete contract">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-6 0h6" />
@@ -481,6 +472,5 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
     </div>
 </div>

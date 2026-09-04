@@ -1,13 +1,13 @@
-<div id="modalAddOrder" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-transparent overflow-y-auto">
-    <div class="bg-white rounded-lg max-w-6xl w-full m-4 my-8">
+<div id="modalAddOrder" class="hidden fixed inset-0 z-50 flex items-start justify-center pt-20 pb-10 overflow-y-auto bg-transparent">
+    <div class="bg-white shadow-sm border-l-4 border-l-brand-600 w-full max-w-6xl mx-4">
         <div
-            class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-lg">
+            class="flex items-center justify-between px-6 py-4">
             <div>
-                <h3 class="text-xl font-semibold text-slate-900">Add Order</h3>
+                <h3 class="text-lg font-semibold text-brand-700 font-display">Add Order</h3>
                 <p class="text-xs text-slate-500 mt-1">Create a new order</p>
             </div>
             <button onclick="closeLocalModal('modalAddOrder'); resetOrderForm();"
-                class="text-slate-400 hover:text-slate-600">✕</button>
+                class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100" aria-label="Close"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
         </div>
 
         <form id="orderForm" onsubmit="submitAddOrder(event)">
@@ -22,22 +22,22 @@
                         <div>
                             <label class="block text-sm text-slate-600">Order Number</label>
                             <input id="order_no" name="order_no" type="text" readonly value="ORD-0001"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Order Date</label>
                             <input id="order_date" name="order_date" type="date"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Expected Delivery Date</label>
                             <input id="expected_delivery_date" name="expected_delivery_date" type="date"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Priority</label>
                             <select id="order_priority" name="priority"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Normal">Normal</option>
                                 <option value="High">High</option>
                                 <option value="Urgent">Urgent</option>
@@ -46,7 +46,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Company</label>
                             <select id="order_company" name="company_id"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">-- Select Company --</option>
                                 @if (isset($companies))
                                     @foreach ($companies as $id => $name)
@@ -58,7 +58,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Branch / Department</label>
                             <select id="order_department" name="department_id"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">-- Select Department --</option>
                                 @if (isset($departments))
                                     @foreach ($departments as $id => $name)
@@ -70,7 +70,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Order Type</label>
                             <select id="order_type" name="order_type"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Sale">Sale</option>
                                 <option value="Quotation">Quotation</option>
                                 <option value="Proforma Invoice">Proforma Invoice</option>
@@ -80,7 +80,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Status</label>
                             <select id="order_status" name="status"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Draft">Draft</option>
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Processing">Processing</option>
@@ -104,7 +104,7 @@
                             <label class="block text-sm text-slate-600">Customer <span
                                     class="text-red-500">*</span></label>
                             <select id="order_customer" name="customer_id" required onchange="handleOrderCustomerChange(this)"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">-- Select Customer --</option>
                                 @if (isset($customers))
                                     @foreach ($customers as $customer)
@@ -116,22 +116,22 @@
                         <div>
                             <label class="block text-sm text-slate-600">Customer Name</label>
                             <input id="order_customer_name" type="text" readonly
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Customer Phone</label>
                             <input id="order_customer_phone" type="text" readonly
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Customer Email</label>
                             <input id="order_customer_email" type="email" readonly
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Billing Address</label>
                             <input id="order_billing_address" name="billing_address" type="text"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div class="md:col-span-2">
                             <label class="flex items-center gap-2 text-sm text-slate-600">
@@ -140,7 +140,7 @@
                                 Same as billing address
                             </label>
                             <textarea id="order_shipping_address" name="shipping_address" rows="3"
-                                class="mt-2 block w-full border border-slate-200 rounded p-2" placeholder="Shipping address..."></textarea>
+                                class="mt-2 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" placeholder="Shipping address..."></textarea>
                         </div>
                     </div>
                 </section>
@@ -152,11 +152,11 @@
                             <p class="text-xs text-slate-500 mt-1">Add one or more products to build the order.</p>
                         </div>
                         <button type="button" onclick="addOrderItemRow()"
-                            class="px-3 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium">Add
+                            class="h-9 px-3 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Add
                             Item</button>
                     </div>
 
-                    <div class="overflow-x-auto border border-slate-200 rounded-lg">
+                    <div class="overflow-x-auto border border-slate-200">
                         <table class="w-full min-w-[1200px]">
                             <thead class="bg-slate-50">
                                 <tr>
@@ -189,7 +189,7 @@
                                     <td class="px-3 py-2 text-sm text-slate-600 item-number">1</td>
                                     <td class="px-3 py-2">
                                         <select
-                                            class="order-product block w-full border border-slate-200 rounded p-2 text-sm"
+                                            class="order-product w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                             onchange="handleOrderProductChange(this)">
                                             <option value="">-- Select Product --</option>
                                             @if (isset($products))
@@ -201,21 +201,21 @@
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="text"
-                                            class="order-sku block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50"
+                                            class="order-sku w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none"
                                             readonly />
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="text"
-                                            class="order-description block w-full border border-slate-200 rounded p-2 text-sm" />
+                                            class="order-description w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="number" min="1" value="1"
-                                            class="order-qty block w-full border border-slate-200 rounded p-2 text-sm"
+                                            class="order-qty w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                             oninput="recalculateOrderTotals()" />
                                     </td>
                                     <td class="px-3 py-2">
                                         <select
-                                            class="order-uom block w-full border border-slate-200 rounded p-2 text-sm">
+                                            class="order-uom w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                             <option value="Piece">Piece</option>
                                             <option value="Box">Box</option>
                                             <option value="Kg">Kg</option>
@@ -224,17 +224,17 @@
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="number" min="0" value="0"
-                                            class="order-unit-price block w-full border border-slate-200 rounded p-2 text-sm"
+                                            class="order-unit-price w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                             oninput="recalculateOrderTotals()" />
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="number" min="0" value="0"
-                                            class="order-discount block w-full border border-slate-200 rounded p-2 text-sm"
+                                            class="order-discount w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                             oninput="recalculateOrderTotals()" />
                                     </td>
                                     <td class="px-3 py-2">
                                         <input type="text"
-                                            class="order-total block w-full border border-slate-200 rounded p-2 text-sm bg-slate-50"
+                                            class="order-total w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none"
                                             readonly value="0.00" />
                                     </td>
                                     <td class="px-3 py-2">
@@ -246,7 +246,7 @@
                                     </td>
                                     <td class="px-3 py-2 text-center">
                                         <button type="button"
-                                            class="remove-order-item inline-flex h-9 w-9 items-center justify-center rounded border border-slate-200 text-red-600 hover:bg-red-50 hidden"
+                                            class="remove-order-item inline-flex h-9 w-9 items-center justify-center border border-slate-200 text-red-600 hover:bg-red-50 hidden"
                                             onclick="removeOrderItemRow(this)">
                                             <svg class="h-4 w-4" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -271,18 +271,18 @@
                         <div>
                             <label class="block text-sm text-slate-600">Subtotal</label>
                             <input id="order_subtotal" type="text" readonly value="0.00"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Overall Discount (%)</label>
                             <input id="order_discount_percent" type="number" min="0" value="0"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Discount Amount</label>
                             <input id="order_discount_amount" type="text" readonly value="0.00"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div class="flex items-end gap-3">
                             <label class="flex items-center gap-2 text-sm text-slate-600 mb-2">
@@ -295,28 +295,28 @@
                             <label class="block text-sm text-slate-600">Tax / VAT (%)</label>
                             <input id="order_vat_percent" type="number" min="0" value="18"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">VAT Amount</label>
                             <input id="order_vat_amount" type="text" readonly value="0.00"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Shipping / Delivery Cost (TZS)</label>
                             <input id="order_shipping_cost" type="number" min="0" value="0"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Other Charges (TZS)</label>
                             <input id="order_other_charges" type="number" min="0" value="0"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div class="md:col-span-2 lg:col-span-4">
                             <div
-                                class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-4 flex items-center justify-between gap-4 flex-wrap">
+                                class="border border-emerald-200 bg-emerald-50 px-4 py-4 flex items-center justify-between gap-4 flex-wrap">
                                 <div>
                                     <p class="text-sm font-medium text-emerald-700">Grand Total</p>
                                     <p class="text-xs text-emerald-600">Subtotal - Discount + VAT + Shipping + Other
@@ -329,12 +329,12 @@
                             <label class="block text-sm text-slate-600">Amount Paid (TZS)</label>
                             <input id="order_amount_paid" type="number" min="0" value="0"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Balance Due</label>
                             <input id="order_balance_due" type="text" readonly value="0.00"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                     </div>
                 </section>
@@ -347,7 +347,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Payment Status</label>
                             <select id="order_payment_status" name="payment_status"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Unpaid">Unpaid</option>
                                 <option value="Partially Paid">Partially Paid</option>
                                 <option value="Fully Paid">Fully Paid</option>
@@ -357,7 +357,7 @@
                             <label class="block text-sm text-slate-600">Payment Method</label>
                             <select id="order_payment_method" name="payment_method"
                                 onchange="toggleCreditTerms(this.value)"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Cash">Cash</option>
                                 <option value="Bank Transfer">Bank Transfer</option>
                                 <option value="Mobile Money M-Pesa">Mobile Money M-Pesa</option>
@@ -369,17 +369,17 @@
                         <div>
                             <label class="block text-sm text-slate-600">Payment Reference</label>
                             <input id="order_payment_reference" type="text"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Payment Date</label>
                             <input id="order_payment_date" type="date"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div id="creditTermsWrap" class="hidden">
                             <label class="block text-sm text-slate-600">Credit Terms</label>
                             <select id="order_credit_terms"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2"
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                 onchange="calculateCreditDueDate()">
                                 <option value="7">7 Days</option>
                                 <option value="14">14 Days</option>
@@ -390,7 +390,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Credit Due Date</label>
                             <input id="order_credit_due_date" type="date" readonly
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                     </div>
                 </section>
@@ -403,7 +403,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Delivery Method</label>
                             <select id="order_delivery_method" name="delivery_method"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Customer Pickup">Customer Pickup</option>
                                 <option value="Company Delivery">Company Delivery</option>
                                 <option value="Third Party Courier">Third Party Courier</option>
@@ -412,12 +412,12 @@
                         <div>
                             <label class="block text-sm text-slate-600">Delivery Date</label>
                             <input id="order_delivery_date" type="date"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Delivery Status</label>
                             <select id="order_delivery_status" name="delivery_status"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="Not Dispatched">Not Dispatched</option>
                                 <option value="In Transit">In Transit</option>
                                 <option value="Delivered">Delivered</option>
@@ -427,16 +427,16 @@
                         <div>
                             <label class="block text-sm text-slate-600">Driver / Delivery Person</label>
                             <input id="order_driver" type="text"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Vehicle / Plate Number</label>
                             <input id="order_vehicle" type="text"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm text-slate-600">Delivery Notes</label>
-                            <textarea id="order_delivery_notes" rows="3" class="mt-1 block w-full border border-slate-200 rounded p-2"
+                            <textarea id="order_delivery_notes" rows="3" class="mt-1 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                 placeholder="Special delivery instructions..."></textarea>
                         </div>
                     </div>
@@ -451,7 +451,7 @@
                             <label class="block text-sm text-slate-600">Sales Representative <span
                                     class="text-red-500">*</span></label>
                             <select id="order_sales_rep" name="sales_rep_id" required
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">-- Select Sales Rep --</option>
                                 @if (isset($users))
                                     @foreach ($users as $user)
@@ -463,7 +463,7 @@
                         <div>
                             <label class="block text-sm text-slate-600">Approved By</label>
                             <select id="order_approved_by" name="approved_by"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2">
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                                 <option value="">-- No Approval (Optional) --</option>
                                 @if (isset($users))
                                     @foreach ($users as $user)
@@ -476,12 +476,12 @@
                             <label class="block text-sm text-slate-600">Commission %</label>
                             <input id="order_commission_percent" type="number" min="0" value="0"
                                 oninput="recalculateOrderTotals()"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Commission Amount</label>
                             <input id="order_commission_amount" type="text" readonly value="0.00"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2 bg-slate-50 text-slate-600" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-sm outline-none" />
                         </div>
                     </div>
                 </section>
@@ -494,27 +494,27 @@
                         <div>
                             <label class="block text-sm text-slate-600">LPO / Customer Purchase Order</label>
                             <input id="order_lpo" type="file" accept=".pdf,.jpg,.jpeg,.png"
-                                class="mt-1 block w-full border border-slate-200 rounded p-2" />
+                                class="mt-1 w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" />
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">File Preview</label>
                             <div id="orderFilePreview"
-                                class="mt-1 rounded border border-dashed border-slate-200 px-4 py-5 text-sm text-slate-500">
+                                class="mt-1 border border-dashed border-slate-200 px-4 py-5 text-sm text-slate-500">
                                 No file selected.</div>
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Internal Notes</label>
-                            <textarea id="order_internal_notes" rows="3" class="mt-1 block w-full border border-slate-200 rounded p-2"
+                            <textarea id="order_internal_notes" rows="3" class="mt-1 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                 placeholder="Staff-only remarks..."></textarea>
                         </div>
                         <div>
                             <label class="block text-sm text-slate-600">Customer Notes</label>
-                            <textarea id="order_customer_notes" rows="3" class="mt-1 block w-full border border-slate-200 rounded p-2"
+                            <textarea id="order_customer_notes" rows="3" class="mt-1 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                 placeholder="Remarks to print on invoice/delivery note..."></textarea>
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm text-slate-600">Terms & Conditions</label>
-                            <textarea id="order_terms_conditions" rows="4" class="mt-1 block w-full border border-slate-200 rounded p-2"
+                            <textarea id="order_terms_conditions" rows="4" class="mt-1 w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                                 placeholder="Return policy, warranty terms, and other conditions..."></textarea>
                         </div>
                     </div>
@@ -524,10 +524,10 @@
             <div class="px-6 py-4 flex gap-3 justify-end border-t border-slate-100">
 
                 <button type="button" onclick="closeLocalModal('modalAddOrder'); resetOrderForm();"
-                    class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-md text-sm font-medium">Cancel</button>
+                    class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
 
                 <button type="submit" id="submitOrderBtn"
-                    class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium">Add
+                    class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Add
                     Order</button>
             </div>
         </form>
