@@ -1,14 +1,14 @@
 <div id="equityPane">
-    <div class="overflow-x-auto">
-        <table class="min-w-full">
-            <thead class="bg-slate-50">
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Shareholder</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Equity Type</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Shares</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Ownership %</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-center">Status</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Shareholder</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Equity Type</th>
+                    <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Shares</th>
+                    <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Ownership %</th>
+                    <th class="px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-wide">Status</th>
                     <!--<th class="text-xs text-slate-500 uppercase px-4 py-3 text-center">Actions</th> -->
                 </tr>
             </thead>
@@ -27,7 +27,7 @@
                         <td class="px-4 py-3 text-sm text-right text-slate-700">{{ number_format($equity->shares) }}</td>
                         <td class="px-4 py-3 text-sm text-right text-slate-700">{{ $equity->ownership_percentage ?? 0 }}%</td>
                         <td class="px-4 py-3 text-sm text-center">
-                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                            <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-50 text-green-700">
                                 Active
                             </span>
                         </td>
@@ -76,7 +76,7 @@
                     <!-- Dropdown row -->
                     <tr class="hidden" id="dropdown-{{ $index }}">
                         <td colspan="7" class="px-4 py-3">
-                            <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-4 text-sm text-slate-700">
+                            <div class="border border-slate-200 bg-white p-4 text-sm text-slate-700">
                                 <h3 class="font-semibold text-slate-800 mb-2">Equity Details</h3>
                                 <ul class="space-y-1">
                                     <li><strong>Shareholder:</strong> {{ $equity->shareholder }}</li>

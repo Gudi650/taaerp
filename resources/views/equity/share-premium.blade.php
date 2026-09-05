@@ -1,16 +1,16 @@
 {{-- Loading components for share premium actions --}}
 
 <div id="sharePremiumPane">
-    <div class="overflow-x-auto">
-        <table class="min-w-full">
-            <thead class="bg-slate-50">
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Record ID</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Premium Amount</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Shares Issued</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Premium/Share</th>
-                    <th class="text-xs text-slate-500 uppercase px-4 py-3 text-center">Status</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Record ID</th>
+                    <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                    <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Premium Amount</th>
+                    <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Shares Issued</th>
+                    <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Premium/Share</th>
+                    <th class="px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-wide">Status</th>
                     <!--<th class="text-xs text-slate-500 uppercase px-4 py-3 text-center">Actions</th> -->
                 </tr>
             </thead>
@@ -28,7 +28,7 @@
                         <td class="px-4 py-3 text-sm text-right text-slate-700">{{ number_format($premium->premium_per_share, 2) }}</td>
 
                         <td class="px-4 py-3 text-sm text-center">
-                            <span class="inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 font-medium text-xs">
+                            <span class="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 font-medium text-xs">
                                 Approved
                             </span>
                         </td>
@@ -53,32 +53,32 @@
                     <!-- Dropdown row -->
                     <tr id="share-premium-details-{{ $premium->id }}" class="hidden bg-slate-50/70">
                         <td colspan="7" class="px-4 py-4">
-                            <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                            <div class="border border-slate-200 bg-white p-4">
                                 <div class="flex items-start justify-between gap-4 flex-wrap">
                                     <div>
                                         <h4 class="text-sm font-semibold text-slate-900">Share Premium Record: SP-{{ $premium->id }}</h4>
                                         <p class="text-xs text-slate-500 mt-1">Company: {{ $premium->company->name }}</p>
                                     </div>
                                     <div>
-                                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-green-50 text-green-700 font-medium text-xs">
+                                        <span class="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 font-medium text-xs">
                                             Approved
                                         </span>
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm">
-                                    <div class="rounded-lg bg-slate-50 p-3">
+                                    <div class="bg-brand-50 p-3">
                                         <p class="text-xs uppercase tracking-wide text-slate-500">Premium Info</p>
                                         <p class="mt-1 font-medium text-slate-900">Premium Amount: TZS {{ number_format($premium->total_premium, 2) }}</p>
                                         <p class="text-slate-600">Shares Issued: {{ $premium->shares_issued }}</p>
                                         <p class="text-slate-600">Premium/Share: {{ number_format($premium->premium_per_share, 2) }}</p>
                                     </div>
-                                    <div class="rounded-lg bg-slate-50 p-3">
+                                    <div class="bg-brand-50 p-3">
                                         <p class="text-xs uppercase tracking-wide text-slate-500">Dates</p>
                                         <p class="mt-1 text-slate-700">Recorded: {{ $premium->created_at->format('Y-m-d') }}</p>
                                         <p class="text-slate-700">Updated: {{ $premium->updated_at->format('Y-m-d') }}</p>
                                     </div>
-                                    <div class="rounded-lg bg-slate-50 p-3">
+                                    <div class="bg-brand-50 p-3">
                                         <p class="text-xs uppercase tracking-wide text-slate-500">Notes</p>
                                         <p class="mt-1 text-slate-700">{{ $premium->notes ?? 'No notes' }}</p>
                                     </div>
