@@ -122,8 +122,8 @@
         if (skuToggle && skuInput) {
             const syncSkuState = () => {
                 skuInput.readOnly = skuToggle.checked;
-                skuInput.classList.toggle('bg-slate-50', skuToggle.checked);
-                skuInput.classList.toggle('text-slate-600', skuToggle.checked);
+                skuInput.classList.toggle('bg-brand-50', skuToggle.checked);
+                skuInput.classList.toggle('text-brand-700', skuToggle.checked);
 
                 if (!skuToggle.checked) return;
 
@@ -146,8 +146,8 @@
         if (barcodeToggle && barcodeInput) {
             const syncBarcodeState = () => {
                 barcodeInput.readOnly = barcodeToggle.checked;
-                barcodeInput.classList.toggle('bg-slate-50', barcodeToggle.checked);
-                barcodeInput.classList.toggle('text-slate-600', barcodeToggle.checked);
+                barcodeInput.classList.toggle('bg-brand-50', barcodeToggle.checked);
+                barcodeInput.classList.toggle('text-brand-700', barcodeToggle.checked);
 
                 if (barcodeToggle.checked) {
                     barcodeInput.value = generateBarcode();
@@ -159,29 +159,46 @@
         }
     }
     
+    function renderButton(label, onclick) {
+        return `<button type="button" onclick="${onclick}" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">${label}</button>`;
+    }
+
     function switchTab(tabName, buttonEl) {
-        // Hide all tab panes
         const panes = document.querySelectorAll('.tab-content');
         panes.forEach(pane => pane.style.display = 'none');
 
-        // Remove active class from all buttons
         const buttons = document.querySelectorAll('.tab-btn');
         buttons.forEach(btn => {
-            btn.classList.remove('active', 'text-slate-800', 'border-b-2', 'border-brand-600', 'font-semibold');
-            btn.classList.add('text-slate-500', 'hover:text-slate-700');
+            btn.classList.remove('bg-brand-600', 'text-white');
+            btn.classList.add('text-brand-700');
+            btn.querySelector('span')?.classList.replace('bg-white', 'bg-brand-50');
         });
 
-        // Show selected pane and highlight button
         const selectedPane = document.getElementById(tabName + 'Pane');
         if (selectedPane) {
             selectedPane.style.display = 'block';
-            // initialize product modal helpers
             if (typeof initProductModal === 'function') initProductModal();
         }
 
         if (buttonEl) {
-            buttonEl.classList.add('active', 'text-slate-800', 'border-b-2', 'border-brand-600', 'font-semibold');
-            buttonEl.classList.remove('text-slate-500', 'hover:text-slate-700');
+            buttonEl.classList.add('bg-brand-600', 'text-white');
+            buttonEl.classList.remove('text-brand-700');
+            buttonEl.querySelector('span')?.classList.replace('bg-brand-50', 'bg-white');
+        }
+
+        const actionButton = document.getElementById('actionButton');
+        if (!actionButton) return;
+
+        if (tabName === 'products') {
+            actionButton.innerHTML = renderButton('Add Product', "openLocalModal('modalAddProduct')");
+            return;
+        }
+        if (tabName === 'suppliers') {
+            actionButton.innerHTML = renderButton('Add Supplier', "resetSupplierForm(); openLocalModal('modalAddSupplier')");
+            return;
+        }
+        if (tabName === 'purchaseOrders') {
+            actionButton.innerHTML = renderButton('Add Purchase Order', 'resetPOModalForCreate()');
         }
     }
 
@@ -359,7 +376,7 @@
                 preview.className = 'mt-2';
                 preview.innerHTML = `
                     <p class="text-xs text-slate-600 mb-2">${file.name}</p>
-                    <img src="${event.target.result}" alt="Preview" class="h-20 w-auto rounded border border-slate-300" />
+                    <img src="${event.target.result}" alt="Preview" class="h-20 w-auto border border-slate-200" />
                 `;
             };
             reader.readAsDataURL(file);
@@ -517,11 +534,11 @@
         row.className = 'hover:bg-slate-50';
         row.innerHTML = `
             <td class="px-2 py-2">${poItemCount}</td>
-            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][product_name]" placeholder="Product" class="w-full px-2 py-1 border border-slate-200 rounded text-xs" required></td>
-            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][sku]" placeholder="Auto SKU" readonly class="w-full px-2 py-1 border border-slate-200 rounded text-xs bg-slate-50 text-slate-600"></td>
-            <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][quantity_ordered]" placeholder="0" min="1" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" onchange="calculateTotals()" required></td>
+            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][product_name]" placeholder="Product" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs outline-none focus:border-brand-600" required></td>
+            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][sku]" placeholder="Auto SKU" readonly class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-xs outline-none"></td>
+            <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][quantity_ordered]" placeholder="0" min="1" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs text-right outline-none focus:border-brand-600" onchange="calculateTotals()" required></td>
             <td class="px-2 py-2">
-                <select name="items[${poItemCount}][unit_of_measure]" class="w-full px-2 py-1 border border-slate-200 rounded text-xs">
+                <select name="items[${poItemCount}][unit_of_measure]" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs outline-none focus:border-brand-600">
                     <option value="">Select Unit</option>
                     <option value="pieces">Pieces</option>
                     <option value="kg">Kilogram (kg)</option>
@@ -532,8 +549,8 @@
                     <option value="drums">Drums</option>
                 </select>
             </td>
-            <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][unit_price]" placeholder="0.00" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" onchange="calculateTotals()" required></td>
-            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][total_price]" placeholder="0.00" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" readonly></td>
+            <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][unit_price]" placeholder="0.00" step="0.01" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs text-right outline-none focus:border-brand-600" onchange="calculateTotals()" required></td>
+            <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][total_price]" placeholder="0.00" class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-xs text-right outline-none" readonly></td>
             <td class="px-2 py-2 text-center"><button type="button" onclick="removeOrderItem('poItem_${poItemCount}')" class="text-red-600 hover:text-red-900 text-xs">Remove</button></td>
         `;
         tbody.appendChild(row);
@@ -722,11 +739,11 @@
                     row.className = 'hover:bg-slate-50';
                     row.innerHTML = `
                         <td class="px-2 py-2">${poItemCount}</td>
-                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][product_name]" placeholder="Product" class="w-full px-2 py-1 border border-slate-200 rounded text-xs" required></td>
-                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][sku]" placeholder="Auto SKU" readonly class="w-full px-2 py-1 border border-slate-200 rounded text-xs bg-slate-50 text-slate-600"></td>
-                        <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][quantity_ordered]" placeholder="0" min="1" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" onchange="calculateTotals()" required></td>
+                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][product_name]" placeholder="Product" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs outline-none focus:border-brand-600" required></td>
+                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][sku]" placeholder="Auto SKU" readonly class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-xs outline-none"></td>
+                        <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][quantity_ordered]" placeholder="0" min="1" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs text-right outline-none focus:border-brand-600" onchange="calculateTotals()" required></td>
                         <td class="px-2 py-2">
-                            <select name="items[${poItemCount}][unit_of_measure]" class="w-full px-2 py-1 border border-slate-200 rounded text-xs">
+                            <select name="items[${poItemCount}][unit_of_measure]" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs outline-none focus:border-brand-600">
                                 <option value="">Select Unit</option>
                                 <option value="pieces">Pieces</option>
                                 <option value="kg">Kilogram (kg)</option>
@@ -737,8 +754,8 @@
                                 <option value="drums">Drums</option>
                             </select>
                         </td>
-                        <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][unit_price]" placeholder="0.00" step="0.01" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" onchange="calculateTotals()" required></td>
-                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][total_price]" placeholder="0.00" class="w-full px-2 py-1 border border-slate-200 rounded text-xs text-right" readonly></td>
+                        <td class="px-2 py-2"><input type="number" name="items[${poItemCount}][unit_price]" placeholder="0.00" step="0.01" class="w-full h-9 px-3 border border-slate-200 bg-white text-xs text-right outline-none focus:border-brand-600" onchange="calculateTotals()" required></td>
+                        <td class="px-2 py-2"><input type="text" name="items[${poItemCount}][total_price]" placeholder="0.00" class="w-full h-9 px-3 border border-slate-200 bg-brand-50 text-brand-700 text-xs text-right outline-none" readonly></td>
                         <td class="px-2 py-2 text-center"><button type="button" onclick="removeOrderItem('poItem_${poItemCount}')" class="text-red-600 hover:text-red-900 text-xs">Remove</button></td>
                     `;
                     itemsBody.appendChild(row);

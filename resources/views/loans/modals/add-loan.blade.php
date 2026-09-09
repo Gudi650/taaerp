@@ -1,16 +1,18 @@
-<div id="modal-add-loan" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-transparent px-4">
-    <div class="w-full max-w-2xl rounded-lg bg-white shadow-lg">
+<div id="modal-add-loan" class="hidden fixed inset-0 z-50 flex items-start justify-center pt-20 pb-10 overflow-y-auto bg-transparent px-4">
+    <div class="w-full max-w-2xl bg-white shadow-sm border-l-4 border-l-brand-600">
         <form action="{{ route('loans.store') }}" method="POST" id="add-loan-form">
             @csrf
-            <div class="flex items-center justify-between border-b px-5 py-4">
-                <h3 class="text-lg font-semibold">Add Loan</h3>
-                <button type="button" onclick="closeLoanModal('modal-add-loan')" class="text-slate-400 hover:text-slate-600">&times;</button>
+            <div class="flex items-center justify-between px-5 py-4">
+                <h3 class="text-lg font-semibold text-brand-700 font-display">Add Loan</h3>
+                <button type="button" onclick="closeLoanModal('modal-add-loan')" class="w-8 h-8 bg-brand-50 text-brand-700 hover:bg-brand-100" aria-label="Close">
+                    <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
 
             <div class="max-h-[70vh] space-y-4 overflow-y-auto px-5 py-4">
                 <div>
                     <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Loan Type</label>
-                    <select name="loan_type" id="loan_type" required class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                    <select name="loan_type" id="loan_type" required class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                         <option value="external_borrow" @selected(old('loan_type', 'external_borrow') === 'external_borrow')>External borrow (from outside lender)</option>
                         <option value="intercompany" @selected(old('loan_type') === 'intercompany')>Inter-company (company → company)</option>
                         <option value="employee" @selected(old('loan_type') === 'employee')>Employee loan (company → employee)</option>
@@ -20,7 +22,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500" id="company_label">Company (Borrower)</label>
-                        <select name="company_id" id="loan_company_id" required class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="company_id" id="loan_company_id" required class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="" disabled selected>Select company</option>
                             @foreach ($companies ?? [] as $company)
                                 <option value="{{ $company->id }}" @selected((string) old('company_id') === (string) $company->id)>{{ $company->name }}</option>
@@ -32,12 +34,12 @@
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Lender</label>
                         <input type="text" name="lender" id="loan_lender" maxlength="150" placeholder="e.g. CRDB Bank"
                             value="{{ old('lender') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
 
                     <div id="field_counterparty" class="hidden">
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Borrowing Company</label>
-                        <select name="counterparty_company_id" id="loan_counterparty_id" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="counterparty_company_id" id="loan_counterparty_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">Select borrowing company</option>
                             @foreach ($companies ?? [] as $company)
                                 <option value="{{ $company->id }}" @selected((string) old('counterparty_company_id') === (string) $company->id)>{{ $company->name }}</option>
@@ -47,7 +49,7 @@
 
                     <div id="field_employee" class="hidden">
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Employee</label>
-                        <select name="employee_id" id="loan_employee_id" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="employee_id" id="loan_employee_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">Select employee</option>
                             @foreach ($employees ?? [] as $employee)
                                 <option value="{{ $employee->id }}" data-company="{{ $employee->company_id }}" @selected((string) old('employee_id') === (string) $employee->id)>
@@ -61,14 +63,14 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div id="field_source_bank" class="hidden">
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Bank (Money From)</label>
-                        <select name="source_bank_id" id="loan_source_bank_id" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="source_bank_id" id="loan_source_bank_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">-- Select source bank --</option>
                         </select>
                     </div>
 
                     <div id="field_receiving_bank">
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Bank (Money To)</label>
-                        <select name="bank_id" id="loan_bank_id" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="bank_id" id="loan_bank_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">-- Select receiving bank --</option>
                         </select>
                     </div>
@@ -80,16 +82,16 @@
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Principal (TZS)</label>
                         <input type="number" step="0.01" min="0" name="principal" required value="{{ old('principal') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Interest Rate (% p.a.)</label>
                         <input type="number" step="0.01" min="0" max="100" name="interest_rate" required value="{{ old('interest_rate') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Interest Type</label>
-                        <select name="interest_type" required class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="interest_type" required class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="Flat" @selected(old('interest_type', 'Flat') === 'Flat')>Flat</option>
                             <option value="Reducing Balance" @selected(old('interest_type') === 'Reducing Balance')>Reducing Balance</option>
                         </select>
@@ -100,17 +102,17 @@
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Term (months)</label>
                         <input type="number" min="1" name="term_months" required value="{{ old('term_months') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Start Date</label>
                         <input type="date" name="start_date" required value="{{ old('start_date') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Maturity Date</label>
                         <input type="date" name="maturity_date" required value="{{ old('maturity_date') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                 </div>
 
@@ -118,11 +120,11 @@
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Disbursement Date</label>
                         <input type="date" name="disbursement_date" value="{{ old('disbursement_date') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Status</label>
-                        <select name="status" required class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="status" required class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="Pending" @selected(old('status', 'Pending') === 'Pending')>Pending</option>
                             <option value="Active" @selected(old('status') === 'Active')>Active</option>
                             <option value="Closed" @selected(old('status') === 'Closed')>Closed</option>
@@ -136,11 +138,11 @@
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Guarantor</label>
                         <input type="text" name="guarantor" maxlength="150" value="{{ old('guarantor') }}"
-                            class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                            class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     </div>
                     <div>
                         <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Approved By</label>
-                        <select name="approved_by_id" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">
+                        <select name="approved_by_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                             <option value="">-- None --</option>
                             @foreach ($approvers ?? [] as $approver)
                                 <option value="{{ $approver->id }}" @selected((string) old('approved_by_id') === (string) $approver->id)>{{ $approver->name }}</option>
@@ -151,24 +153,24 @@
 
                 <div>
                     <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Purpose</label>
-                    <textarea name="purpose" rows="2" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">{{ old('purpose') }}</textarea>
+                    <textarea name="purpose" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">{{ old('purpose') }}</textarea>
                 </div>
 
                 <div>
                     <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Collateral</label>
-                    <textarea name="collateral" rows="2" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">{{ old('collateral') }}</textarea>
+                    <textarea name="collateral" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">{{ old('collateral') }}</textarea>
                 </div>
 
                 <div>
                     <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Notes</label>
-                    <textarea name="notes" rows="2" class="w-full rounded border border-slate-300 px-3 py-2 text-sm">{{ old('notes') }}</textarea>
+                    <textarea name="notes" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">{{ old('notes') }}</textarea>
                 </div>
             </div>
 
             <div class="flex justify-end gap-3 border-t px-5 py-4">
                 <button type="button" onclick="closeLoanModal('modal-add-loan')"
-                    class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-50">Cancel</button>
-                <button type="submit" class="rounded bg-brand-600 px-4 py-2 text-sm text-white hover:bg-brand-700">Save Loan</button>
+                    class="h-9 px-4 border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50">Cancel</button>
+                <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Save Loan</button>
             </div>
         </form>
     </div>

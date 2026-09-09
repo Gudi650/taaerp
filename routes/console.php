@@ -8,7 +8,10 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+
+/*
 //schedule ceo weekly digest
 Schedule::command('ceo:send-weekly-digest')
     ->weeklyOn(1, '07:00')
     ->timezone('Africa/Dar_es_Salaam');
+*/

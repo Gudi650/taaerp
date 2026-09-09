@@ -1,24 +1,16 @@
-<div id="purchaseOrdersPane" class="tab-content">
-    <div class="flex flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="text-lg font-semibold font-display">Purchase Orders</h2>
-        <button onclick="resetPOModalForCreate()"
-            class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-md text-sm font-medium transition-colors">
-            Add Purchase Order
-        </button>
-    </div>
-    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="min-w-full">
-                <thead class="bg-slate-50">
+<div id="purchaseOrdersPane" class="tab-content" style="display:none">
+    <div class="bg-white shadow-sm overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                     <tr>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">PO Number</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Supplier ID</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">PO Date</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Expected Delivery</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Status</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Total Amount</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
-                        <th class="text-xs text-slate-500 uppercase px-4 py-3 text-right">Action</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">PO Number</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Supplier ID</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">PO Date</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Expected Delivery</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                        <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Total Amount</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                        <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -41,21 +33,21 @@
                                     ];
                                     $statusColor = $statusColors[$purchase->status] ?? 'slate';
                                 @endphp
-                                <span class="inline-flex rounded-full bg-{{ $statusColor }}-100 px-2.5 py-1 text-xs font-medium text-{{ $statusColor }}-700">{{ $purchase->status }}</span>
+                                <span class="inline-flex px-2 py-1 text-xs font-medium bg-{{ $statusColor }}-100 text-{{ $statusColor }}-700">{{ $purchase->status }}</span>
                             </td>
                             <td class="px-4 py-3 text-sm text-right">{{ number_format($purchase->total_amount, 2) }} TZS</td>
                             <td class="px-4 py-3 text-sm">{{ $purchase->company?->name ?? '-' }}</td>
                             <td class="px-4 py-3 text-sm">
                                 <div class="flex justify-end items-center gap-2 whitespace-nowrap">
 
-                                    <button type="button" title="View" onclick="togglePODetails('po{{ $purchase->id }}')" class="p-1.5 rounded-md text-slate-600 hover:bg-slate-100">
+                                    <button type="button" title="View" onclick="togglePODetails('po{{ $purchase->id }}')" class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178Z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
                                     </button>
 
-                                    <button type="button" title="Edit" onclick="editPurchaseOrder({{ $purchase->id }})" class="p-1.5 rounded-md text-blue-600 hover:bg-blue-50" data-po="{{ $purchase->id }}">
+                                    <button type="button" title="Edit" onclick="editPurchaseOrder({{ $purchase->id }})" class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-brand-700 hover:bg-brand-50" data-po="{{ $purchase->id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a2.25 2.25 0 1 1 3.182 3.182L10.582 17.13a4.5 4.5 0 0 1-1.897 1.13L6 19l.74-2.685a4.5 4.5 0 0 1 1.13-1.897L16.862 4.487ZM16.862 4.487 19.5 7.125" />
                                         </svg>
@@ -68,7 +60,7 @@
                                             type="button"
                                             title="Delete"
                                             aria-label="Delete purchase order"
-                                            class="p-1.5 rounded-md text-red-600 hover:bg-red-50"
+                                            class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-red-600 hover:bg-red-50"
                                             onclick="confirmDeletePurchaseOrder({{ $purchase->id }}, @js($purchase->po_number))"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
@@ -80,27 +72,27 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr id="details-po{{ $purchase->id }}" class="hidden bg-slate-50/40">
+                        <tr id="details-po{{ $purchase->id }}" class="hidden bg-slate-50">
                             <td colspan="8" class="px-4 py-3">
-                                <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                                <div class="bg-white p-4 shadow-sm">
                                     <div class="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Purchase Order Details</div>
                                     <div class="grid grid-cols-1 gap-3 text-sm md:grid-cols-2 lg:grid-cols-3">
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">PO Number:</span> <span class="font-medium text-slate-800">{{ $purchase->po_number }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Supplier:</span> <span class="font-medium text-slate-800">{{ $purchase->supplier?->supplier_name ?? '-' }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">PO Date:</span> <span class="font-medium text-slate-800">{{ $purchase->po_date?->format('Y-m-d') ?? '-' }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Expected Delivery:</span> <span class="font-medium text-slate-800">{{ $purchase->expected_delivery_date?->format('Y-m-d') ?? '-' }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Status:</span> <span class="font-medium text-slate-800">{{ $purchase->status }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Total Amount:</span> <span class="font-medium text-slate-800">{{ number_format($purchase->total_amount, 2) }} TZS</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Priority:</span> <span class="font-medium text-slate-800">{{ $purchase->priority_level ?? '-' }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Payment Terms:</span> <span class="font-medium text-slate-800">{{ $purchase->payment_terms ?? '-' }}</span></div>
-                                        <div class="rounded-md bg-slate-50 px-3 py-2"><span class="text-slate-500">Department:</span> <span class="font-medium text-slate-800">{{ $purchase->department?->name ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">PO Number:</span> <span class="font-medium text-slate-800">{{ $purchase->po_number }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Supplier:</span> <span class="font-medium text-slate-800">{{ $purchase->supplier?->supplier_name ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">PO Date:</span> <span class="font-medium text-slate-800">{{ $purchase->po_date?->format('Y-m-d') ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Expected Delivery:</span> <span class="font-medium text-slate-800">{{ $purchase->expected_delivery_date?->format('Y-m-d') ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Status:</span> <span class="font-medium text-slate-800">{{ $purchase->status }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Total Amount:</span> <span class="font-medium text-slate-800">{{ number_format($purchase->total_amount, 2) }} TZS</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Priority:</span> <span class="font-medium text-slate-800">{{ $purchase->priority_level ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Payment Terms:</span> <span class="font-medium text-slate-800">{{ $purchase->payment_terms ?? '-' }}</span></div>
+                                        <div class="bg-brand-50 px-3 py-2"><span class="text-slate-500">Department:</span> <span class="font-medium text-slate-800">{{ $purchase->department?->name ?? '-' }}</span></div>
                                     </div>
                                     @if ($purchase->items && count($purchase->items) > 0)
                                         <div class="mt-4 pt-4 border-t border-slate-200">
                                             <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Order Items</div>
                                             <div class="overflow-x-auto">
                                                 <table class="min-w-full text-xs">
-                                                    <thead class="bg-slate-100">
+                                                    <thead class="bg-brand-50 text-brand-700">
                                                         <tr>
                                                             <th class="px-2 py-2 text-left">Product</th>
                                                             <th class="px-2 py-2 text-left">SKU</th>
@@ -143,6 +135,5 @@
                     @endempty
                 </tbody>
             </table>
-        </div>
     </div>
 </div>
