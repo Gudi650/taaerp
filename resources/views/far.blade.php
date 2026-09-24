@@ -3,45 +3,36 @@
 @section('title', 'Fixed Asset Register')
 
 @section('content')
-<main class="ml-0 lg:ml-64 pt-20 p-6">
+@php
+    $tabChip = 'px-1.5 py-0.5 text-[11px] font-semibold text-brand-700';
+    $assetCount = collect($fixedAssets ?? [])->count();
+@endphp
+<main class="ml-0 lg:ml-64 pt-20 px-4 pb-6 lg:px-6 min-h-screen bg-slate-50">
+    <nav class="inline-flex bg-white shadow-sm mb-6 max-w-full overflow-x-auto">
+        <button type="button" class="flex items-center gap-2 h-9 px-3 text-sm font-medium font-display bg-brand-600 text-white shrink-0">
+            Assets <span class="{{ $tabChip }} bg-white">{{ $assetCount }}</span>
+        </button>
+    </nav>
 
-        <!-- Page Header -->
-        <div class="flex justify-between items-center mb-6">
-            
-            <h1 class="text-2xl font-bold">Fixed Asset Register (FAR)</h1>
+    {{--
+    <div class="flex justify-end gap-2 mb-4">
+        <button onclick="openAddAssetModal()" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Add Asset</button>
+    </div>
+    --}}
 
-            <span class="text-sm text-slate-500">
-
-                {{-- button to add fixed assets in the page 
-                <button onclick="openAddAssetModal()"
-                    class="inline-flex items-center gap-1 px-4 py-2 bg-brand-600 text-white rounded hover:bg-brand-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Add Asset
-                </button>
-                --}}
-
-            </span>
-        </div>
-
-        <!-- Assets Table -->
-        <div class="bg-white border rounded shadow-sm">
-            <h2 class="text-lg font-semibold px-4 py-3 border-b">Fixed Assets</h2>
+        <div class="bg-white shadow-sm overflow-x-auto">
             <table class="w-full text-sm">
-                <thead class="bg-slate-50 border-b border-slate-200">
+                <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Code</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Category</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Asset Name</th>
-                        <th class="px-4 py-3 text-right text-xs font-semibold uppercase">Original Cost</th>
-                        <th class="px-4 py-3 text-right text-xs font-semibold uppercase">Net Book Value</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Acquired Date</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Depreciation Percentage</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Status</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase">Action</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Code</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Category</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Asset Name</th>
+                        <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Original Cost</th>
+                        <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Net Book Value</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Acquired Date</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Depreciation Percentage</th>
+                        <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                        <th class="px-5 py-3 text-center text-[11px] font-semibold uppercase tracking-wide">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -61,19 +52,16 @@
 
                             <td class="px-4 py-3">
                                 @if ($asset['status'] === 'Active')
-                                    <span
-                                        class="inline-flex px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700 border border-green-200">{{ $asset['status'] }}</span>
+                                    <span class="px-2 py-1 text-xs bg-green-50 text-green-700">{{ $asset['status'] }}</span>
                                 @elseif($asset['status'] === 'Disposed')
-                                    <span
-                                        class="inline-flex px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700 border border-red-200">{{ $asset['status'] }}</span>
+                                    <span class="px-2 py-1 text-xs bg-red-50 text-red-700">{{ $asset['status'] }}</span>
                                 @else
-                                    <span
-                                        class="inline-flex px-2 py-0.5 rounded-full text-xs bg-yellow-100 text-yellow-700 border border-yellow-200">{{ $asset['status'] }}</span>
+                                    <span class="px-2 py-1 text-xs bg-amber-50 text-amber-700">{{ $asset['status'] }}</span>
                                 @endif
                             </td>
 
                             <td>
-                                <div class="flex items-center justify-center gap-6">
+                                <div class="flex items-center justify-center gap-2">
 
                                     {{-- 
                                     <a href=""
@@ -88,7 +76,7 @@
                                  --}}
 
                                     <button type="button" onclick="toggleFarDetails('{{ $asset['id'] }}')"
-                                        class="text-slate-600 hover:text-slate-800 transition-colors"
+                                        class="inline-flex h-8 w-8 items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-50"
                                         title="View details" aria-label="View details">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.8" stroke="currentColor" class="w-4 h-4">
@@ -102,7 +90,7 @@
                                     @if ($asset['status'] === 'Active')
                                         <button type="button"
                                             onclick="openDisposeAssetModal({{ $asset['id'] }}, '{{ addslashes($asset['name']) }}', {{ (float) $asset['current_value'] }}, {{ (int) ($asset['company_id'] ?? 0) }})"
-                                            class="text-red-600 hover:text-red-800 transition-colors text-xs font-medium"
+                                            class="h-8 px-3 border border-slate-200 text-red-600 hover:bg-red-50 text-xs font-medium"
                                             title="Dispose asset">
                                             Dispose
                                         </button>
@@ -141,11 +129,11 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr id="fixedassets-details-{{ $asset['id'] }}" class="hidden bg-slate-50/70">
+                        <tr id="fixedassets-details-{{ $asset['id'] }}" class="hidden bg-slate-50">
                             <td colspan="9" class="px-4 py-4">
                             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Code:
                                     </p>
@@ -154,7 +142,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Category:
                                     </p>
@@ -163,7 +151,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Type:
                                     </p>
@@ -173,7 +161,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Term:
                                     </p>
@@ -182,7 +170,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Status:
                                     </p>
@@ -191,7 +179,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Original Value: TZS
                                     </p>
@@ -200,7 +188,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Depreciation value: TZS
                                     </p>
@@ -209,7 +197,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Net Book Value: TZS
                                     </p>
@@ -218,7 +206,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Accumulated Depreciation: TZS
                                     </p>
@@ -227,7 +215,7 @@
                                     </p>
                                 </div>
 
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Acquired: 
                                     </p>
@@ -235,7 +223,7 @@
                                         {{ $asset['acquired'] }}
                                     </p>
                                 </div>
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Created At: 
                                     </p>
@@ -243,7 +231,7 @@
                                         {{ $asset['created_at'] }} 
                                     </p>
                                 </div>
-                                <div class="rounded-lg border border-slate-200 bg-white p-3">
+                                <div class="bg-brand-50 p-3">
                                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         Updated At: 
                                     </p>
@@ -253,14 +241,11 @@
                                 </div>
 
                             </div>
-                        </td>
-
-                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-4 py-3 text-center text-slate-500">No assets found</td>
+                            <td colspan="9" class="px-4 py-8 text-center text-slate-500">No assets found</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -285,19 +270,19 @@
 <div id="disposeAssetModal" class="hidden">
         <form id="disposeAssetForm" method="POST" class="space-y-4">
             @csrf
-            <p class="text-sm text-slate-600">Asset: <span id="disposeAssetName" class="font-semibold text-slate-800"></span></p>
-            <p class="text-sm text-slate-600">Net book value: <span id="disposeAssetNbv" class="font-semibold mono"></span></p>
+            <p class="text-sm text-slate-600">Asset: <span id="disposeAssetName" class="font-semibold text-brand-700"></span></p>
+            <p class="text-sm text-slate-600">Net book value: <span id="disposeAssetNbv" class="font-semibold mono text-brand-700"></span></p>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Disposal date</label>
+                <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Disposal date</label>
                 <input type="date" name="disposal_date" id="disposal_date" required
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm" value="{{ now()->toDateString() }}">
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600" value="{{ now()->toDateString() }}">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Method</label>
+                <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Method</label>
                 <select name="disposal_method" id="disposal_method" required
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm">
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     <option value="Sold">Sold</option>
                     <option value="Disposed">Disposed / Scrapped</option>
                     <option value="Written Off">Written Off</option>
@@ -305,15 +290,15 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Proceeds (TZS)</label>
+                <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Proceeds (TZS)</label>
                 <input type="number" step="0.01" min="0" name="disposal_proceeds" id="disposal_proceeds" value="0"
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm">
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Bank account (required if proceeds &gt; 0)</label>
+                <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Bank account (required if proceeds &gt; 0)</label>
                 <select name="disposal_bank_id" id="disposal_bank_id"
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm">
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
                     <option value="">— None —</option>
                     @foreach (($banks ?? []) as $bank)
                         <option value="{{ $bank->id }}" data-company="{{ $bank->company_id }}">
@@ -324,13 +309,13 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Notes</label>
-                <textarea name="disposal_notes" rows="2" class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm"></textarea>
+                <label class="mb-1 block text-xs font-semibold uppercase text-slate-500">Notes</label>
+                <textarea name="disposal_notes" rows="2" class="w-full px-3 py-2 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"></textarea>
             </div>
 
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-md text-sm">Cancel</button>
-                <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Confirm disposal</button>
+                <button type="button" onclick="closeModal()" class="h-9 px-4 border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-medium">Cancel</button>
+                <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Confirm disposal</button>
             </div>
         </form>
     </div>
