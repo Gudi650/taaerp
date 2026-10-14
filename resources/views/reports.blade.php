@@ -3,18 +3,19 @@
 @section('title', 'Reports')
 
 @section('content')
-<main class="ml-0 lg:ml-64 pt-20 p-6 min-h-screen">
-    <div class="mb-6">
-      <h1 class="text-2xl font-semibold">{{ ($reportType ?? 'expenses') === 'income' ? 'Income Report' : 'Expense Report' }}</h1>
-      <p class="text-sm text-slate-500">View financial reports by company or across all companies.</p>
-    </div>
+<main class="ml-0 lg:ml-64 pt-20 px-4 pb-6 lg:px-6 min-h-screen bg-slate-50">
+    <nav class="inline-flex bg-white shadow-sm mb-6">
+        <button type="button" class="flex items-center gap-2 h-9 px-3 text-sm font-medium font-display bg-brand-600 text-white">
+            Reports
+        </button>
+    </nav>
 
-    <form method="POST" action="{{ route('reports') }}" class="bg-white border border-slate-200 rounded-lg p-4 mb-6">
+    <form method="POST" action="{{ route('reports') }}" class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4 mb-6">
       @csrf
       <div class="flex flex-col lg:flex-row gap-4 items-end">
         <div class="w-full lg:w-56">
-          <label for="report_type" class="block text-sm font-medium text-slate-700 mb-1">Report type</label>
-          <select id="report_type" name="report_type" class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm bg-white">
+          <label for="report_type" class="mb-1 block text-xs font-semibold uppercase text-slate-500">Report type</label>
+          <select id="report_type" name="report_type" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             <option value="expenses" @selected(($reportType ?? 'expenses') === 'expenses')>Expenses</option>
             <option value="income" @selected(($reportType ?? '') === 'income')>Income Statement</option>
             <option value="balance" @selected(($reportType ?? '') === 'balance')>Balance Sheet</option>
@@ -28,16 +29,16 @@
         </div>
 
         <div class="w-full lg:w-56">
-          <label for="scope" class="block text-sm font-medium text-slate-700 mb-1">Report scope</label>
-          <select id="scope" name="scope" class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm bg-white">
+          <label for="scope" class="mb-1 block text-xs font-semibold uppercase text-slate-500">Report scope</label>
+          <select id="scope" name="scope" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             <option value="all" @selected($selectedScope === 'all')>All Companies</option>
             <option value="company" @selected($selectedScope === 'company')>Single company</option>
           </select>
         </div>
 
         <div id="companyField" class="w-full lg:w-64 {{ $selectedScope === 'company' ? '' : 'hidden' }}">
-          <label for="company_id" class="block text-sm font-medium text-slate-700 mb-1">Company</label>
-          <select id="company_id" name="company_id" class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm bg-white">
+          <label for="company_id" class="mb-1 block text-xs font-semibold uppercase text-slate-500">Company</label>
+          <select id="company_id" name="company_id" class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600">
             @foreach ($companies as $company)
               <option value="{{ $company->id }}" @selected((int) $selectedCompanyId === (int) $company->id)>
                 {{ $company->name === 'Goodness Group' ? 'Goodness Group (Parent)' : $company->name }}
@@ -47,14 +48,12 @@
         </div>
          {{-- Date Range --}}
         <div class="w-full lg:w-auto">
-            <label for="date_filter" class="block text-sm font-medium text-slate-700 mb-1">
-                Period
-            </label>
+            <label for="date_filter" class="mb-1 block text-xs font-semibold uppercase text-slate-500">Period</label>
 
             <select
                 id="date_filter"
                 name="date_filter"
-                class="w-full lg:w-52 px-3 py-2 border border-slate-200 rounded-md text-sm bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                class="w-full lg:w-52 h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
             >
                 <option value="this_month" @selected(($dateFilter ?? 'this_month') === 'this_month')>
                     This Month
@@ -84,36 +83,32 @@
             class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto {{ ($dateFilter ?? '') === 'custom' ? '' : 'hidden' }}"
         >
             <div>
-                <label for="start_date" class="block text-sm font-medium text-slate-700 mb-1">
-                    From
-                </label>
+                <label for="start_date" class="mb-1 block text-xs font-semibold uppercase text-slate-500">From</label>
 
                 <input
                     type="date"
                     id="start_date"
                     name="start_date"
                     value="{{ $startDate ?? '' }}"
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                 >
             </div>
 
             <div>
-                <label for="end_date" class="block text-sm font-medium text-slate-700 mb-1">
-                    To
-                </label>
+                <label for="end_date" class="mb-1 block text-xs font-semibold uppercase text-slate-500">To</label>
 
                 <input
                     type="date"
                     id="end_date"
                     name="end_date"
                     value="{{ $endDate ?? '' }}"
-                    class="w-full px-3 py-2 border border-slate-200 rounded-md text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                    class="w-full h-9 px-3 border border-slate-200 bg-white text-sm outline-none focus:border-brand-600"
                 >
             </div>
         </div>
 
         <div class="ml-auto">
-          <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Generate</button>
+          <button type="submit" class="h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Generate</button>
         </div>
       </div>
     </form>
@@ -124,150 +119,129 @@
     @endphp
     @if (($reportType ?? 'expenses') === 'expenses')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/expense-report{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Expense Report</a>
-        <a href="/expense-report-export{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Expense Report PDF</a>
+        <a href="/expense-report{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Expense Report</a>
+        <a href="/expense-report-export{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Expense Report PDF</a>
       </div>
     @elseif (($reportType ?? 'expenses') === 'balance')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/balance-sheet{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Balance Sheet</a>
-        <a href="/balance_sheet{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Balance Sheet PDF</a>
+        <a href="/balance-sheet{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Balance Sheet</a>
+        <a href="/balance_sheet{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Balance Sheet PDF</a>
       </div>
     @elseif (($reportType ?? 'expenses') === 'income')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/income-statement{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Income Statement</a>
-        <a href="/income-statement-export{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Income Statement PDF</a>
+        <a href="/income-statement{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Income Statement</a>
+        <a href="/income-statement-export{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Income Statement PDF</a>
       </div>
 
     @elseif (($reportType ?? '') === 'trial')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/trial-balance{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Trial Balance</a>
-        <a href="/trial-balance-export{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Trial Balance PDF</a>
+        <a href="/trial-balance{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Trial Balance</a>
+        <a href="/trial-balance-export{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Trial Balance PDF</a>
       </div>
     @elseif (($reportType ?? '') === 'cashflow')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/cash-flow{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Cash Flow Statement</a>
-        <a href="/cash-flow-export{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Cash Flow Statement PDF</a>
+        <a href="/cash-flow{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Cash Flow Statement</a>
+        <a href="/cash-flow-export{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Cash Flow Statement PDF</a>
       </div>
     @elseif (($reportType ?? '') === 'equity')
       <div class="flex flex-wrap gap-3 mb-6">
-        <a href="/equity-statement{{ $reportFilterQs }}" class="px-4 py-2 bg-white border border-slate-200 rounded-md text-sm text-slate-700">Preview Equity Statement</a>
-        <a href="/equity-statement-export{{ $reportFilterQs }}" class="px-4 py-2 bg-brand-600 text-white rounded-md text-sm">Export Equity Statement PDF</a>
+        <a href="/equity-statement{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-50 text-brand-700 text-sm font-medium hover:bg-brand-100">Preview Equity Statement</a>
+        <a href="/equity-statement-export{{ $reportFilterQs }}" class="inline-flex items-center h-9 px-4 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Export Equity Statement PDF</a>
       </div>
     @endif
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-      <div class="bg-white border border-slate-200 rounded-lg p-4">
-        <p class="text-xs uppercase tracking-wide text-slate-500">Scope</p>
-        <p class="mt-2 text-lg font-semibold text-slate-900">{{ $selectedCompanyName }}</p>
+      <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Scope</p>
+        <p class="mt-2 text-lg font-semibold text-brand-700">{{ $selectedCompanyName }}</p>
       </div>
       @if (($reportType ?? 'expenses') === 'expenses')
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Expense Count</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">{{ number_format($totals['expense_count'] ?? 0) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Expense Count</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">{{ number_format($totals['expense_count'] ?? 0) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Gross Amount</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($totals['gross_amount'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Gross Amount</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($totals['gross_amount'] ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Net Amount</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($totals['net_amount'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Net Amount</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($totals['net_amount'] ?? 0, 2) }}</p>
         </div>
       @elseif (($reportType ?? '') === 'income')
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Invoices</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">{{ number_format($incomeTotals['invoice_count'] ?? 0) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Invoices</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">{{ number_format($incomeTotals['invoice_count'] ?? 0) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Subtotal</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($incomeTotals['subtotal'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Subtotal</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($incomeTotals['subtotal'] ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Total</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($incomeTotals['total'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Total</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($incomeTotals['total'] ?? 0, 2) }}</p>
         </div>
       @elseif (($reportType ?? '') === 'balance')
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Assets</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['assets'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Assets</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($balance['assets'] ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Liabilities</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['liabilities'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Liabilities</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($balance['liabilities'] ?? 0, 2) }}</p>
         </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Equity</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['equity'] ?? 0, 2) }}</p>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Equity</p>
+          <p class="mt-2 text-2xl font-semibold text-brand-700">TZS {{ number_format($balance['equity'] ?? 0, 2) }}</p>
         </div>
       @else
-        <div class="bg-white border border-slate-200 rounded-lg p-4 flex items-center justify-center text-sm text-slate-500">No summary available for this report type.</div>
+        <div class="bg-white shadow-sm border-l-4 border-l-brand-600 p-4 flex items-center text-sm text-slate-500">No summary available for this report type.</div>
       @endif
     </div>
 
     @if (($reportType ?? 'expenses') === 'balance')
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div class="bg-white border border-slate-200 rounded-lg p-4">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Assets</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['assets'] ?? 0, 2) }}</p>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Liabilities</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['liabilities'] ?? 0, 2) }}</p>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-lg p-4">
-          <p class="text-xs uppercase tracking-wide text-slate-500">Equity</p>
-          <p class="mt-2 text-2xl font-semibold text-slate-900">TZS {{ number_format($balance['equity'] ?? 0, 2) }}</p>
-        </div>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mb-6">
-        <div class="p-4 border-b border-slate-200">
-          <h3 class="text-lg font-semibold">Assets Breakdown</h3>
-          <p class="text-sm text-slate-500">Cash and Accounts Receivable</p>
+      <div class="bg-white shadow-sm overflow-hidden mb-6">
+        <div class="px-5 py-3 border-b-2 border-brand-600 bg-brand-50">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-brand-700">Assets Breakdown</p>
         </div>
         <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-3 bg-slate-50 rounded">
-            <p class="text-sm text-slate-500">Cash</p>
-            <p class="mt-1 text-lg font-semibold">TZS {{ number_format($balance['cash'] ?? 0, 2) }}</p>
+          <div class="bg-brand-50 p-3">
+            <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Cash</p>
+            <p class="mt-1 text-lg font-semibold text-brand-700">TZS {{ number_format($balance['cash'] ?? 0, 2) }}</p>
           </div>
-          <div class="p-3 bg-slate-50 rounded">
-            <p class="text-sm text-slate-500">Receivables</p>
-            <p class="mt-1 text-lg font-semibold">TZS {{ number_format($balance['receivables'] ?? 0, 2) }}</p>
+          <div class="bg-brand-50 p-3">
+            <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Receivables</p>
+            <p class="mt-1 text-lg font-semibold text-brand-700">TZS {{ number_format($balance['receivables'] ?? 0, 2) }}</p>
           </div>
         </div>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mb-6">
-        <div class="p-4 border-b border-slate-200">
-          <h3 class="text-lg font-semibold">Liabilities Breakdown</h3>
-          <p class="text-sm text-slate-500">Accounts Payable</p>
+      <div class="bg-white shadow-sm overflow-hidden mb-6">
+        <div class="px-5 py-3 border-b-2 border-brand-600 bg-brand-50">
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-brand-700">Liabilities Breakdown</p>
         </div>
         <div class="p-4">
-          <p class="text-sm text-slate-500">Total Payables</p>
-          <p class="mt-1 text-lg font-semibold">TZS {{ number_format($balance['payables'] ?? $balance['liabilities'] ?? 0, 2) }}</p>
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Total Payables</p>
+          <p class="mt-1 text-lg font-semibold text-brand-700">TZS {{ number_format($balance['payables'] ?? $balance['liabilities'] ?? 0, 2) }}</p>
         </div>
       </div>
     @endif
 
     @if (($reportType ?? 'expenses') === 'pnl' || ($reportType ?? '') === 'pl' || ($reportType ?? '') === 'profit')
-      <div class="bg-white border border-slate-200 rounded-lg p-4 mb-6">
-        <h3 class="text-lg font-semibold mb-3">Profit & Loss (last 12 months)</h3>
+      <div class="bg-white shadow-sm p-4 mb-6">
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-brand-700 mb-3">Profit & Loss (last 12 months)</p>
         <canvas id="pnlChart" height="120"></canvas>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-        <div class="p-4 border-b border-slate-200">
-          <h3 class="text-lg font-semibold">P&L Table</h3>
-          <p class="text-sm text-slate-500">Revenue, Expenses and Profit by month.</p>
-        </div>
+      <div class="bg-white shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="min-w-full">
-            <thead class="bg-slate-50 text-slate-500 text-xs uppercase">
+          <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
               <tr>
-                <th class="px-4 py-3 text-left">Month</th>
-                <th class="px-4 py-3 text-right">Revenue</th>
-                <th class="px-4 py-3 text-right">Expenses</th>
-                <th class="px-4 py-3 text-right">Profit</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Month</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Revenue</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Expenses</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Profit</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
@@ -285,20 +259,15 @@
       </div>
     @endif
     @if ($selectedScope === 'all' && ($reportType ?? 'expenses') === 'expenses')
-      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mb-6">
-        <div class="p-4 border-b border-slate-200">
-          <h3 class="text-lg font-semibold">Company Breakdown</h3>
-          <p class="text-sm text-slate-500">Totals for each company across the whole business.</p>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="min-w-full">
-            <thead class="bg-slate-50">
+      <div class="bg-white shadow-sm overflow-x-auto mb-6">
+          <table class="w-full text-sm">
+            <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
               <tr>
-                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
-                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Expenses</th>
-                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Gross</th>
-                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">VAT</th>
-                <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Net</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Expenses</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Gross</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">VAT</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Net</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
@@ -313,27 +282,21 @@
               @empty
                 <tr><td colspan="5" class="px-4 py-6 text-sm text-slate-500">No expense data found.</td></tr>
               @endforelse
-            </tbody>
+                </tbody>
           </table>
-        </div>
       </div>
       @endif
 
       @if ($selectedScope === 'all' && ($reportType ?? 'expenses') === 'income')
-        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mb-6">
-          <div class="p-4 border-b border-slate-200">
-            <h3 class="text-lg font-semibold">Company Income Breakdown</h3>
-            <p class="text-sm text-slate-500">Totals for each company (invoices).</p>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full">
-              <thead class="bg-slate-50">
+        <div class="bg-white shadow-sm overflow-x-auto mb-6">
+            <table class="w-full text-sm">
+              <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
                 <tr>
-                  <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Company</th>
-                  <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Invoices</th>
-                  <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Subtotal</th>
-                  <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Tax</th>
-                  <th class="text-xs text-slate-500 uppercase px-4 py-3 text-left">Total</th>
+                  <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                  <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Invoices</th>
+                  <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Subtotal</th>
+                  <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Tax</th>
+                  <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Total</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
@@ -350,43 +313,32 @@
                 @endforelse
               </tbody>
             </table>
-          </div>
         </div>
       @endif
 
-    <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
-      <div class="p-4 border-b border-slate-200">
-        @if (($reportType ?? 'expenses') === 'expenses')
-          <h3 class="text-lg font-semibold">Expense Details</h3>
-          <p class="text-sm text-slate-500">Latest expense records in the selected scope.</p>
-        @else
-          <h3 class="text-lg font-semibold">Invoice Details</h3>
-          <p class="text-sm text-slate-500">Latest invoices in the selected scope.</p>
-        @endif
-      </div>
-      <div class="overflow-x-auto">
-        <table class="min-w-full">
-          <thead class="bg-slate-50">
-            <tr class="text-slate-500 text-xs uppercase">
+    <div class="bg-white shadow-sm overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-brand-50 text-brand-700 border-b-2 border-brand-600">
+            <tr>
               @if (($reportType ?? 'expenses') === 'expenses')
-                <th class="px-4 py-3 text-left">Expense No</th>
-                <th class="px-4 py-3 text-left">Date</th>
-                <th class="px-4 py-3 text-left">Company</th>
-                <th class="px-4 py-3 text-left">Department</th>
-                <th class="px-4 py-3 text-left">Category</th>
-                <th class="px-4 py-3 text-left">Status</th>
-                <th class="px-4 py-3 text-right">Gross</th>
-                <th class="px-4 py-3 text-right">VAT</th>
-                <th class="px-4 py-3 text-right">Net</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Expense No</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Date</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Department</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Category</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Gross</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">VAT</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Net</th>
               @else
-                <th class="px-4 py-3 text-left">Invoice No</th>
-                <th class="px-4 py-3 text-left">Date</th>
-                <th class="px-4 py-3 text-left">Company</th>
-                <th class="px-4 py-3 text-left">Client</th>
-                <th class="px-4 py-3 text-left">Status</th>
-                <th class="px-4 py-3 text-right">Subtotal</th>
-                <th class="px-4 py-3 text-right">Tax</th>
-                <th class="px-4 py-3 text-right">Total</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Invoice No</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Date</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Company</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Client</th>
+                <th class="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-wide">Status</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Subtotal</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Tax</th>
+                <th class="px-5 py-3 text-right text-[11px] font-semibold uppercase tracking-wide">Total</th>
               @endif
             </tr>
           </thead>
@@ -425,7 +377,6 @@
               @endif
           </tbody>
         </table>
-      </div>
     </div>
   </main>
 
